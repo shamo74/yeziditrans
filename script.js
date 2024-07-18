@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const SPECIAL_RESPONSES = {};
 
             // جلب محتوى ملف JSON
-            fetch('translationss.json')
+            fetch('translations.json')
                 .then(response => response.json())
                 .then(data => {
                     // تحديث inukKey و SPECIAL_RESPONSES بالمحتوى المسترجع
