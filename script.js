@@ -77,6 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             // استبدال الحروف المطلوبة بالحروف الجديدة
                             word = word.split('').map((char) => {
                                 if (char === 'ا') return '𐺀';
+if (char === 'أ') return '𐺀';
                                 if (char === 'ب') return '𐺁';
                                 if (char === 'ت') return '𐺄';
                                 if (char === 'ث') return '𐺅';
