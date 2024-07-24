@@ -123,6 +123,7 @@ if (char === 'أ') return '𐺀';
                                 if (char === 'َ') return '𐺬';
                                 if (char === 'ء') return '𐺫';
                                 if (char === 'ّ') return '𐺫';
+      if (char === 'ً') return '𐺬𐺬';
                                 if (char === 'ى') return '𐺱';
                                 if (char === 'ة') return '𐺄𐺭';
                                 if (char === '𐺣𐺣') return 'وو';
