@@ -223,13 +223,13 @@ function displayNote(noteTextAr, noteTextEn) {
     
     if (noteTextAr.trim() !== '') {
         var noteAr = document.createElement('p');
-        noteAr.textContent = 'ملاحظة بالعربية: ' + noteTextAr;
+        noteAr.textContent = 'العربية: ' + noteTextAr;
         noteContainer.appendChild(noteAr);
     }
     
     if (noteTextEn.trim() !== '') {
         var noteEn = document.createElement('p');
-        noteEn.textContent = 'Note in English: ' + noteTextEn;
+        noteEn.textContent = 'ايزيدي: ' + noteTextEn;
         noteContainer.appendChild(noteEn);
     }
     
