@@ -4,78 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat Page</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
-            margin: 0;
-            padding: 0;
-        }
-        .chat-container {
-            width: 50%;
-            margin: 50px auto;
-            padding: 10px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        .messages {
-            border: 1px solid #ccc;
-            padding: 10px;
-            height: 300px;
-            overflow-y: scroll;
-        }
-        .message {
-            margin-bottom: 10px;
-        }
-        .message span {
-            font-weight: bold;
-        }
-        .input-container {
-            margin-top: 10px;
-        }
-        .input-container input {
-            width: 80%;
-            padding: 10px;
-            margin-right: 10px;
-        }
-        .input-container button {
-            padding: 10px;
-        }
-    </style>
-</head>
-<body>
-    <div class="chat-container">
-        <h2>Chat with ID: 7eb215b9eb5f1c1a3becdd7cfa3fa898</h2>
-        <div class="messages" id="messages">
-            <!-- Messages will be displayed here -->
-        </div>
-        <div class="input-container">
-            <input type="text" id="messageInput" placeholder="Type your message here...">
-            <button onclick="sendMessage()">Send</button>
-        </div>
-    </div>
-
-    <script>
-        const chatId = '7eb215b9eb5f1c1a3becdd7cfa3fa898';
-
-        function sendMessage() {
-            const messageInput = document.getElementById('messageInput');
-            const messageText = messageInput.value.trim();
-            if (messageText !== '') {
-                displayMessage('You', messageText);
-                messageInput.value = '';
-                // Here you can add the code to send the message to the server
-            }
-        }
-
-        function displayMessage(sender, message) {
-            const messagesContainer = document.getElementById('messages');
-            const messageElement = document.createElement('div');
-            messageElement.classList.add('message');
-            messageElement.innerHTML = `<span>${sender}:</span> ${message}`;
-            messagesContainer.appendChild(messageElement);
-            messagesContainer.scrollTop = messagesContainer.scrollHeight;
-        }
-    </script>
-</body>
-</html>
+<script type='text/javascript'>
+var onWebChat={ar:[], set: function(a,b){if (typeof onWebChat_==='undefined'){this.ar.
+push([a,b]);}else{onWebChat_.set(a,b);}},get:function(a){return(onWebChat_.get(a));},
+w:(function(){ var ga=document.createElement('script'); ga.type = 'text/javascript';
+ga.async=1;ga.src=('https:'==document.location.protocol?'https:':'http:') + 
+'//www.onwebchat.com/clientchat/7eb215b9eb5f1c1a3becdd7cfa3fa898';var s=
+document.getElementsByTagName('script')[0];s.parentNode.insertBefore(ga,s);})()}
+</script>
