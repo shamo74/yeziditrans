@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Template</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .chat-container {
+            width: 400px;
+            max-width: 100%;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            font-size: 1.2em;
+        }
+
+        .chat-messages {
+            padding: 10px;
+            height: 300px;
+            overflow-y: auto;
+        }
+
+        .chat-message {
+            padding: 5px 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            background-color: #f1f1f1;
+        }
+
+        .chat-footer {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #ddd;
+        }
+
+        .chat-footer input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+        .chat-footer button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            Chat Template
+        </div>
+        <div class="chat-messages" id="chat-messages">
+            <!-- Messages will appear here -->
+        </div>
+        <div class="chat-footer">
+            <input type="text" id="chat-input" placeholder="Type a message">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        function sendMessage() {
+            const chatMessages = document.getElementById('chat-messages');
+            const chatInput = document.getElementById('chat-input');
+            const message = chatInput.value.trim();
+
+            if (message) {
+                const messageElement = document.createElement('div');
+                messageElement.classList.add('chat-message');
+                messageElement.innerText = message;
+
+                chatMessages.appendChild(messageElement);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+
+                chatInput.value = '';
+            }
+        }
+
+        // Function to add idchat
+        function addIdChat(idchat) {
+            const chatContainer = document.querySelector('.chat-container');
+            chatContainer.setAttribute('data-idchat', idchat);
+            console.log(`Chat ID set to: ${idchat}`);
+        }
+
+        // Example usage
+        addIdChat('7eb215b9eb5f1c1a3becdd7cfa3fa898');  // Set the chat ID here
+    </script>
+</body>
+</html>
