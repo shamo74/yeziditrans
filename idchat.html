@@ -1,9 +1,76 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat Page</title>
+    <title>Chat Live</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+	</nav>     
+    <button href="index.html" id="backButton">الرجوع إلى الخلف</button>
+   
+    <nav>
+        <ul>
+        	
+            <li><a href="index.html">الرئيسية</a></li>
+<hr/>
+يمكنكم التواصل معنا عبر الدردشة المباشرة على هذه الصفحة، يرجى التواصل معنا إذا واجهتكم أي مشكلة أو إذا كان لديكم طلب تودون إخبارنا به.
+<br/> <hr/>
+You can contact us via live chat on this page. Please contact us if you face any problem or if you have a request you want to tell us.
+
+
+    <br/>    <br/>       <br/>   <br/>   <br/>    <br/>   <br/>   <br/>
+هنا زر في اسفل شاشة اضغط عليه لإظهار الدردشة الحية 
+    <script src="script.js"></script>
+</body>
+</html>
+
+<style/>
+
+body {
+    font-family: Arial, sans-serif;
+    direction: rtl;
+    text-align: right;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 15px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #000;
+}
+
+#backButton {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#backButton:hover {
+    background-color: #0056b3;
+}
+
+
+</style>
+
+<script/>
+document.getElementById('backButton').addEventListener('click', function() {
+    window.history.back();
+});
+</script>
 <script type='text/javascript'>
 var onWebChat={ar:[], set: function(a,b){if (typeof onWebChat_==='undefined'){this.ar.
 push([a,b]);}else{onWebChat_.set(a,b);}},get:function(a){return(onWebChat_.get(a));},
