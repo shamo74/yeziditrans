@@ -112,7 +112,7 @@
             <button onclick="addNote()">إضافة</button>
         </div>
         <h2>الكلمات</h2>
-        <input type="text" id="searchInput" placeholder="ابحث عن ملاحظة..." oninput="searchNotes()">
+        <input type="text" id="searchInput" placeholder="ابحث في القاموس" oninput="searchNotes()">
         <div id="notesContainer"></div>
     </div>
     <script src="script.js"></script>
@@ -223,13 +223,13 @@ function displayNote(noteTextAr, noteTextEn) {
     
     if (noteTextAr.trim() !== '') {
         var noteAr = document.createElement('p');
-        noteAr.textContent = 'العربية: ' + noteTextAr;
+        noteAr.textContent = 'العربية | ' + noteTextAr;
         noteContainer.appendChild(noteAr);
     }
     
     if (noteTextEn.trim() !== '') {
         var noteEn = document.createElement('p');
-        noteEn.textContent = 'ايزيدي: ' + noteTextEn;
+        noteEn.textContent = 'ايزيدي | ' + noteTextEn;
         noteContainer.appendChild(noteEn);
     }
     
