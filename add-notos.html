@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<!-- Coding by CodingLab | www.codinglabweb.com-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sidebar Menu | Side Navigation Bar</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css" />
+
+    <!-- Boxicons CSS -->
+    <link
+      href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <nav>
+      <div class="logo">
+        <i class="bx bx-menu menu-icon"></i>
+        <span class="logo-name">Google Translate</span>
+      </div>
+
+      <div class="sidebar">
+        <div class="logo">
+          <i class="bx bx-menu menu-icon"></i>
+          <span class="logo-name">Translate</span>
+        </div>
+ 
+        <div class="sidebar-content">
+          <ul class="lists">
+            <li class="list">
+              <a href="#" class="nav-link">
+                <i class="bx bx-home-alt icon"></i>
+                <span class="link">Dashboard</span>
+              </a>
+            </li>
+            <li class="list">
+              <a href="#" class="nav-link">
+                <i class="bx bx-bar-chart-alt-2 icon"></i>
+                <span class="link">Revenue</span>
+              </a>
+            </li>
+            <li class="list">
+              <a href="#" class="nav-link">
+                <i class="bx bx-bell icon"></i>
+                <span class="link">Notifications</span>
+              </a>
+            </li>
+            <li class="list">
+              <a href="#" class="nav-link">
+                <i class="bx bx-message-rounded icon"></i>
+                <span class="link">Messages</span>
+              </a>
+            </li>
+            <li class="list">
+              <a href="#" class="nav-link">
+                <i class="bx bx-pie-chart-alt-2 icon"></i>
+                <span class="link">Analytics</span>
+              </a>
+            </li>
+            <li class="list">
+              <a href="#" class="nav-link">
+                <i class="bx bx-heart icon"></i>
+                <span class="link">Likes</span>
+              </a>
+            </li>
+            <li class="list">
+              <a href="#" class="nav-link">
+                <i class="bx bx-folder-open icon"></i>
+                <span class="link">Files</span>
+              </a>
+            </li>
+          </ul>
+
+          <div class="bottom-cotent">
+            <li class="list">
+              <a href="#" class="nav-link">
+                <i class="bx bx-cog icon"></i>
+                <span class="link">Settings</span>
+              </a>
+            </li>
+            <li class="list">
+              <a href="#" class="nav-link">
+                <i class="bx bx-log-out icon"></i>
+                <span class="link">Logout</span>
+              </a>
+            </li>
+          </div>
+          
+        </div>
+      </div> 
+    </nav>
+</div>
+  <br/>  <br/>  <br/>   <br/>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ملاحظاتي</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>إضافة كلمات</h1>
+        <div class="note-input">
+            <textarea id="noteTextAr" placeholder="اكتب ملاحظتك هنا باللغة العربية..."></textarea>
+            <textarea id="noteTextEn" placeholder="اكتب ملاحظتك هنا باللغة الإنجليزية..."></textarea>
+            <button onclick="addNote()">إضافة ملاحظة</button>
+        </div>
+        <h2>ملاحظاتي</h2>
+        <input type="text" id="searchInput" placeholder="ابحث عن ملاحظة..." oninput="searchNotes()">
+        <div id="notesContainer"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+
+<style/>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    width: 400px;
+    max-width: 90%;
+}
+
+h1, h2 {
+    text-align: center;
+}
+
+.note-input {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+textarea {
+    width: 100%;
+    height: 70px;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    resize: none;
+}
+
+button {
+    padding: 10px;
+    background: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #0056b3;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.note {
+    background: #fffae6;
+    padding: 10px;
+    border-radius: 4px;
+    margin: 10px 0;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+</style>
+<script/>
+document.addEventListener('DOMContentLoaded', loadNotes);
+
+function loadNotes() {
+    var notes = JSON.parse(localStorage.getItem('notes')) || [];
+    notes.forEach(note => displayNote(note.ar, note.en));
+}
+
+function addNote() {
+    var noteTextAr = document.getElementById('noteTextAr').value;
+    var noteTextEn = document.getElementById('noteTextEn').value;
+
+    if (noteTextAr.trim() !== '' || noteTextEn.trim() !== '') {
+        // Save the note in localStorage
+        var notes = JSON.parse(localStorage.getItem('notes')) || [];
+        notes.push({ ar: noteTextAr, en: noteTextEn });
+        localStorage.setItem('notes', JSON.stringify(notes));
+
+        // Display the note
+        displayNote(noteTextAr, noteTextEn);
+
+        // Clear the textareas after adding the note
+        document.getElementById('noteTextAr').value = '';
+        document.getElementById('noteTextEn').value = '';
+    } else {
+        alert('من فضلك أدخل ملاحظة قبل إضافتها');
+    }
+}
+
+function displayNote(noteTextAr, noteTextEn) {
+    var noteContainer = document.createElement('div');
+    noteContainer.className = 'note';
+    
+    if (noteTextAr.trim() !== '') {
+        var noteAr = document.createElement('p');
+        noteAr.textContent = 'ملاحظة بالعربية: ' + noteTextAr;
+        noteContainer.appendChild(noteAr);
+    }
+    
+    if (noteTextEn.trim() !== '') {
+        var noteEn = document.createElement('p');
+        noteEn.textContent = 'Note in English: ' + noteTextEn;
+        noteContainer.appendChild(noteEn);
+    }
+    
+    document.getElementById('notesContainer').appendChild(noteContainer);
+}
+
+function searchNotes() {
+    var searchQuery = document.getElementById('searchInput').value.toLowerCase();
+    var notesContainer = document.getElementById('notesContainer');
+    notesContainer.innerHTML = '';
+
+    var notes = JSON.parse(localStorage.getItem('notes')) || [];
+    notes.forEach(note => {
+        if (note.ar.toLowerCase().includes(searchQuery) || note.en.toLowerCase().includes(searchQuery)) {
+            displayNote(note.ar, note.en);
+        }
+    });
+}
+</script>
+    <script>
+      const navBar = document.querySelector("nav"),
+        menuBtns = document.querySelectorAll(".menu-icon"),
+        overlay = document.querySelector(".overlay");
+
+      menuBtns.forEach((menuBtn) => {
+        menuBtn.addEventListener("click", () => {
+          navBar.classList.toggle("open");
+        });
+      });
+
+      overlay.addEventListener("click", () => {
+        navBar.classList.remove("open");
+      });
+    </script>
+  </body>
+</html>
