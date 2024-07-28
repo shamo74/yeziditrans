@@ -95,6 +95,22 @@
     </nav>
 </div>
   <br/>  <br/>  <br/>   <br/>
+
+    <audio id="welcome-audio" src="soundfile.mp3"></audio>
+
+    <script>
+        // التحقق مما إذا كان الصوت قد تم تشغيله سابقًا
+        if (!localStorage.getItem('audioPlayed')) {
+            // تشغيل الصوت
+            document.getElementById('welcome-audio').play();
+            // تعيين علامة في التخزين المحلي تدل على أن الصوت تم تشغيله
+            localStorage.setItem('audioPlayed', 'true');
+        }
+    </script>
+</body>
+</html>
+
+    
 <!DOCTYPE html>
 <html lang="en">
 <head>
