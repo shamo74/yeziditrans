@@ -168,7 +168,6 @@ body {
 </style>
 
 <script/>
-
 document.addEventListener('DOMContentLoaded', (event) => {
     const keys = document.querySelectorAll('.key');
     const textInput = document.getElementById('textInput');
@@ -178,7 +177,37 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     // Define sound files for each Arabic character
     const sounds = {
-        'ا': 'a.mp3',
+        'ا': 'a0.mp3', // Sound for key press
+        'ب': 'b0.mp3',
+        'ت': 't0.mp3',
+        'ث': 'th0.mp3',
+        'ج': 'j0.mp3',
+        'ح': 'h0.mp3',
+        'خ': 'kh0.mp3',
+        'د': 'd0.mp3',
+        'ذ': 'dh0.mp3',
+        'ر': 'r0.mp3',
+        'ز': 'z0.mp3',
+        'س': 's0.mp3',
+        'ش': 'sh0.mp3',
+        'ص': 'ss0.mp3',
+        'ض': 'dd0.mp3',
+        'ط': 't0.mp3',
+        'ظ': 'th0.mp3',
+        'ع': 'aa0.mp3',
+        'غ': 'gh0.mp3',
+        'ف': 'f0.mp3',
+        'ق': 'q0.mp3',
+        'ك': 'k0.mp3',
+        'ل': 'l0.mp3',
+        'م': 'm0.mp3',
+        'ن': 'n0.mp3',
+        'ه': 'h0.mp3',
+        ' ': 'space0.mp3'
+    };
+
+    const textSounds = {
+        'ا': 'a.mp3', // Sound for play text button
         'ب': 'b.mp3',
         'ت': 't.mp3',
         'ث': 'th.mp3',
@@ -208,11 +237,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
     };
 
     // Function to play sound based on character
-    function playCharacterSound(character) {
-        if (sounds[character]) {
-            playSound.src = sounds[character];
-            playSound.currentTime = 0;
-            playSound.play();
+    function playCharacterSound(character, soundType) {
+        const soundSrc = soundType === 'key' ? sounds[character] : textSounds[character];
+        if (soundSrc) {
+            keySound.src = soundSrc;
+            keySound.currentTime = 0;
+            keySound.play();
         }
     }
 
@@ -223,13 +253,17 @@ document.addEventListener('DOMContentLoaded', (event) => {
             const sound = key.getAttribute('data-sound');
             if (char) {
                 textInput.value += char;
+                // Play sound for the key press
+                playCharacterSound(char, 'key');
             } else if (key.classList.contains('delete-key')) {
                 textInput.value = textInput.value.slice(0, -1);
+                // Optionally, play a sound for deletion
+                // playCharacterSound(' ', 'key');
             }
 
-            // Play the specific key sound
+            // Play the specific key sound (if needed for other purposes)
             keySound.src = sound;
-            keySound.currentTime = 0; // Rewind to the start
+            keySound.currentTime = 0;
             keySound.play();
         });
     });
@@ -242,28 +276,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
         function playNextSound() {
             if (index < text.length) {
                 const char = text[index];
-                playCharacterSound(char);
+                playCharacterSound(char, 'text');
                 index++;
                 setTimeout(playNextSound, 500); // Adjust the timeout for desired speed
             }
         }
 
         playNextSound();
-    });
-
-    // Add event listeners to keys to play sound for the next character
-    keys.forEach(key => {
-        key.addEventListener('click', function () {
-            const char = key.getAttribute('data-char');
-            const currentIndex = textInput.value.length;
-            const nextChar = textInput.value[currentIndex] || '';
-
-            // Play sound for the current character and next character
-            playCharacterSound(char);
-            if (nextChar) {
-                playCharacterSound(nextChar);
-            }
-        });
     });
 });
 </script>
