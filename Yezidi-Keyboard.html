@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yezidi Learn Keyboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <input type="text" id="textInput" placeholder="Add text... " readonly>
+        <div id="keyboard" class="keyboard">
+            <!-- Add buttons for each letter -->
+            <button class="key" data-char="ا">
+                A<br><span class="sub-char">ا</span>
+            </button>
+            <button class="key" data-char="ب">
+                B<br><span class="sub-char">ب</span>
+            </button>
+            <button class="key" data-char="ت">
+                C<br><span class="sub-char">ت</span>
+            </button>
+            <button class="key" data-char="ث">
+                D<br><span class="sub-char">ث</span>
+            </button>
+            <button class="key" data-char="ج">
+                E<br><span class="sub-char">ج</span>
+            </button>
+            <button class="key" data-char="ح">
+                F<br><span class="sub-char">ح</span>
+            </button>
+            <button class="key" data-char="خ">
+                G<br><span class="sub-char">خ</span>
+            </button>
+            <button class="key" data-char="د">
+                H<br><span class="sub-char">د</span>
+            </button>
+            <button class="key" data-char="ذ">
+                I<br><span class="sub-char">ذ</span>
+            </button>
+            <button class="key" data-char="ر">
+                J<br><span class="sub-char">ر</span>
+            </button>
+            <button class="key" data-char="ز">
+                K<br><span class="sub-char">ز</span>
+            </button>
+            <button class="key" data-char="س">
+                L<br><span class="sub-char">س</span>
+            </button>
+            <button class="key" data-char="ش">
+                M<br><span class="sub-char">ش</span>
+            </button>
+            <button class="key" data-char="ص">
+                N<br><span class="sub-char">ص</span>
+            </button>
+            <button class="key" data-char="ض">
+                O<br><span class="sub-char">ض</span>
+            </button>
+            <button class="key" data-char="ط">
+                P<br><span class="sub-char">ط</span>
+            </button>
+            <button class="key" data-char="ظ">
+                Q<br><span class="sub-char">ظ</span>
+            </button>
+            <button class="key" data-char="ع">
+                R<br><span class="sub-char">ع</span>
+            </button>
+            <button class="key" data-char="غ">
+                S<br><span class="sub-char">غ</span>
+            </button>
+            <button class="key" data-char="ف">
+                T<br><span class="sub-char">ف</span>
+            </button>
+            <button class="key" data-char="ق">
+                U<br><span class="sub-char">ق</span>
+            </button>
+            <button class="key" data-char="ك">
+                V<br><span class="sub-char">ك</span>
+            </button>
+            <button class="key" data-char="ل">
+                W<br><span class="sub-char">ل</span>
+            </button>
+            <button class="key" data-char="م">
+                X<br><span class="sub-char">م</span>
+            </button>
+            <button class="key" data-char="ن">
+                Y<br><span class="sub-char">ن</span>
+            </button>
+            <button class="key" data-char="ه">
+                Z<br><span class="sub-char">ه</span>
+            </button>
+            <!-- Add more buttons as needed -->
+       
+            <button class="key delete-key">
+                Delete 
+            </button>
+        </div>
+    </div>
+    <audio id="keySound" src="key-sound.mp3"></audio> <!-- الصوت المستخدم عند الضغط على الأزرار -->
+    <script src="script.js"></script>
+</body>
+</html>
+
+<style/>
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    text-align: center;
+}
+
+#textInput {
+    width: 300px;
+    padding: 10px;
+    font-size: 19px;
+    margin-bottom: 20px;
+}
+
+.keyboard {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.key {
+    width: 50px; /* increased to accommodate the additional line */
+    height: 60px; /* increased to accommodate the additional line */
+    margin: 5px;
+    font-size: 20px;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    cursor: pointer;
+    display:
+    transition: transform 0.1s, background-color 0.1s;
+}
+
+.key:active {
+    transform: scale(0.9);
+    background-color: #dddddd;
+}
+
+.sub-char {
+    color: red;
+    font-size: 14px;
+}
+    .delete-key {
+    width: 120px; /* wider for better visibility */
+    height: 60px; /* same height as other keys */
+    background-color: #ff6666; /* different color for delete key */
+    color: #ffffff;
+    font-size: 16px;
+}
+
+.delete-key:active {
+    background-color: #ff3333;
+}
+</style>
+
+<script/>
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    const keys = document.querySelectorAll('.key');
+    const textInput = document.getElementById('textInput');
+    const keySound = document.getElementById('keySound');
+
+    keys.forEach(key => {
+        key.addEventListener('click', () => {
+            const char = key.getAttribute('data-char');
+            if (char) {
+                textInput.value += char;
+            } else if (key.classList.contains('delete-key')) {
+                textInput.value = textInput.value.slice(0, -1);
+            }
+            
+            // Play the key sound
+            keySound.currentTime = 0; // Rewind to the start
+            keySound.play();
+        });
+    });
+});
+</script>
+
