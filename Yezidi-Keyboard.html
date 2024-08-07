@@ -175,36 +175,36 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const keySound = document.getElementById('keySound');
     const playTextButton = document.getElementById('playTextButton');
     const playSound = document.getElementById('playSound');
-    
+
     // Define sound files for each Arabic character
     const sounds = {
-        'ا': 'sounds/a.mp3',
-        'ب': 'sounds/b.mp3',
-        'ت': 'sounds/t.mp3',
-        'ث': 'sounds/th.mp3',
-        'ج': 'sounds/j.mp3',
-        'ح': 'sounds/h.mp3',
-        'خ': 'sounds/kh.mp3',
-        'د': 'sounds/d.mp3',
-        'ذ': 'sounds/dh.mp3',
-        'ر': 'sounds/r.mp3',
-        'ز': 'sounds/z.mp3',
-        'س': 'sounds/s.mp3',
-        'ش': 'sounds/sh.mp3',
-        'ص': 'sounds/ss.mp3',
-        'ض': 'sounds/dd.mp3',
-        'ط': 'sounds/t.mp3',
-        'ظ': 'sounds/th.mp3',
-        'ع': 'sounds/aa.mp3',
-        'غ': 'sounds/gh.mp3',
-        'ف': 'sounds/f.mp3',
-        'ق': 'sounds/q.mp3',
-        'ك': 'sounds/k.mp3',
-        'ل': 'sounds/l.mp3',
-        'م': 'sounds/m.mp3',
-        'ن': 'sounds/n.mp3',
-        'ه': 'sounds/h.mp3',
-        ' ': 'sounds/space.mp3'
+        'ا': 'a.mp3',
+        'ب': 'b.mp3',
+        'ت': 't.mp3',
+        'ث': 'th.mp3',
+        'ج': 'j.mp3',
+        'ح': 'h.mp3',
+        'خ': 'kh.mp3',
+        'د': 'd.mp3',
+        'ذ': 'dh.mp3',
+        'ر': 'r.mp3',
+        'ز': 'z.mp3',
+        'س': 's.mp3',
+        'ش': 'sh.mp3',
+        'ص': 'ss.mp3',
+        'ض': 'dd.mp3',
+        'ط': 't.mp3',
+        'ظ': 'th.mp3',
+        'ع': 'aa.mp3',
+        'غ': 'gh.mp3',
+        'ف': 'f.mp3',
+        'ق': 'q.mp3',
+        'ك': 'k.mp3',
+        'ل': 'l.mp3',
+        'م': 'm.mp3',
+        'ن': 'n.mp3',
+        'ه': 'h.mp3',
+        ' ': 'space.mp3'
     };
 
     // Function to play sound based on character
@@ -249,6 +249,21 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }
 
         playNextSound();
+    });
+
+    // Add event listeners to keys to play sound for the next character
+    keys.forEach(key => {
+        key.addEventListener('click', function () {
+            const char = key.getAttribute('data-char');
+            const currentIndex = textInput.value.length;
+            const nextChar = textInput.value[currentIndex] || '';
+
+            // Play sound for the current character and next character
+            playCharacterSound(char);
+            if (nextChar) {
+                playCharacterSound(nextChar);
+            }
+        });
     });
 });
 </script>
