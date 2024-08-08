@@ -91,7 +91,7 @@ if (char === 'أ') return '𐺀';
                                 if (char === 'س') return '𐺑';
                                 if (char === 'ش') return '𐺒';
                                 if (char === 'ص') return '𐺓';
-                                if (char === 'ض') return '𐺄';
+                                if (char === 'ض') return '𐺔';
                                 if (char === 'ط') return '𐺕';
                                 if (char === 'ظ') return '𐺖';
                                 if (char === 'ع') return '𐺗';
