@@ -126,7 +126,7 @@ if (char === 'أ') return '𐺀';
       if (char === 'ً') return '𐺬𐺬';
                                 if (char === 'ى') return '𐺱';
                                 if (char === 'ة') return '𐺄𐺭';
-                                if (char === '𐺣𐺣') return 'وو';
+                                
                                 if (char === 'ک') return '𐺝';
                                 if (char === 'A') return 'A';
                                 if (char === 'B') return 'B';
