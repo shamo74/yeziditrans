@@ -76,9 +76,9 @@ document.addEventListener('DOMContentLoaded', function() {
                         if (!translated) {
                             // استبدال الحروف المطلوبة بالحروف الجديدة
                             word = word.split('').map((char) => {
-                                if (char === 'ا') return '𐺀';
+                                if (char === 'كل') return 'همو';
 
-                                if (char === 'Z') return 'Z';
+                                if (char === '') return '';
                                 return char;
                             }).join('');
                             result += word + " ";
