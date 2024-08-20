@@ -117,7 +117,7 @@ if (char === 'أ') return '𐺀';
                                 if (char === 'ێ') return '𐺩';
                                 if (char === 'ە') return '𐺦';
                                 if (char === 'ۆ') return '𐺥';
-                                if (char === 'وو') return '𐺤';
+                                if (char === 'وو') return '𐺚';
                                 if (char === 'ی') return '𐺨';
                                 if (char === 'ؤ') return '𐺤';
                                 if (char === 'ە') return '𐺧';
