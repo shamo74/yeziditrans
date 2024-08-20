@@ -108,6 +108,7 @@ if (char === 'أ') return '𐺀';
                                 if (char === 'پ') return '𐺂';
                                         if (char === 'پپ') return '𐺃';
                                 if (char === 'چ') return '𐺇';
+                                        if (char === 'چچ') return '𐺈';
                                 if (char === 'ڕ') return '𐺎';
                                 if (char === 'ژ') return '𐺐';
                                 if (char === 'ڤ') return '𐺛';
