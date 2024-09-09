@@ -170,13 +170,13 @@
 <div id="popup" class="popup">
     <div class="popup-content">
         <span id="closePopup" class="close">&times;</span>
-        <h2>اختر لهجة:</h2>
+        <h2>اختر التحويل من اللغة العربية إلى اللهجة:</h2>
         <ul>
-            <li><a href="http://example.com/egyptian">الشنگالية</a></li>
-            <li><a href="http://example.com/levantine">الولاطية</a></li>
-            <li><a href="http://example.com/khaleeji">الخوارگية</a></li>
-            <li><a href="http://example.com/north-african">الجوانبية</a></li>
-            <li><a href="http://example.com/iraqi">البعشيقية</a></li>
+            <li><a href="http://example.com/egyptian">اللغة العربية <span class="arrow">←</span> اللهجة الخوارگية</a></li>
+            <li><a href="http://example.com/levantine">اللغة العربية <span class="arrow">←</span> اللهجة الجوانبية</a></li>
+            <li><a href="http://example.com/khaleeji">اللغة العربية <span class="arrow">←</span> اللهجة ولاتية</a></li>
+            <li><a href="http://example.com/north-african">اللغة العربية <span class="arrow">←</span> اللهجة ايزيدية ارمينية</a></li>
+            <li><a href="http://example.com/iraqi">اللغة العربية <span class="arrow">←</span> اللهجة ايزيدية روسيا</a></li>
         </ul>
     </div>
 </div>
@@ -186,7 +186,6 @@
 </html>
 
 <Style/>
-
 /* تصميم عام */
 body {
     font-family: 'Cairo', sans-serif;
@@ -206,7 +205,7 @@ body {
     cursor: pointer;
     border-radius: 25px;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     margin-top: 100px;
 }
 
@@ -232,22 +231,26 @@ body {
 /* محتوى النافذة */
 .popup-content {
     background-color: white;
-    padding: 30px;
-    border-radius: 15px;
-    width: 320px;
+    padding: 40px;
+    border-radius: 20px;
+    width: 450px;
     text-align: center;
     animation: popupSlide 0.5s ease-out forwards;
+    max-height: 70%;
+    overflow-y: auto;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    position: relative;
 }
 
 /* زر الإغلاق */
 .close {
-    float: right;
+    position: absolute;
+    top: 10px;
+    right: 15px;
     cursor: pointer;
     font-size: 24px;
     color: #888;
-    margin-top: -20px;
-    margin-right: -20px;
-    padding: 10px;
+    padding: 5px;
     border-radius: 50%;
     transition: color 0.3s ease;
 }
@@ -263,18 +266,36 @@ ul {
 }
 
 li {
-    margin: 10px 0;
+    margin: 20px 0;
 }
 
 li a {
     text-decoration: none;
-    color: #4CAF50;
+    color: #333;
     font-size: 18px;
-    transition: color 0.3s ease;
+    background-color: #f1f1f1;
+    padding: 15px 20px;
+    border-radius: 8px;
+    display: inline-block;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    position: relative;
 }
 
 li a:hover {
-    color: #45a049;
+    background-color: #4CAF50;
+    color: white;
+}
+
+/* السهم */
+.arrow {
+    margin-right: 10px; /* بدلاً من margin-left لجعل السهم قبل النص */
+    font-size: 20px;
+    color: #888;
+    transition: color 0.3s ease;
+}
+
+li a:hover .arrow {
+    color: white;
 }
 
 /* تأثيرات النافذة */
@@ -290,17 +311,23 @@ li a:hover {
 </Style>
 
 <Script/>
-
+// عند الضغط على زر "اختر لهجة"
 document.getElementById("openPopup").addEventListener("click", function() {
+    // عرض النافذة المنبثقة
     document.getElementById("popup").style.display = "flex";
 });
 
+// عند الضغط على زر الإغلاق (X)
 document.getElementById("closePopup").addEventListener("click", function() {
+    // إخفاء النافذة المنبثقة
     document.getElementById("popup").style.display = "none";
 });
 
+// عند النقر في أي مكان خارج محتوى النافذة
 window.addEventListener("click", function(event) {
+    // إذا كان الهدف هو نافذة الخلفية (الشاشة المعتمة)
     if (event.target == document.getElementById("popup")) {
+        // إخفاء النافذة المنبثقة
         document.getElementById("popup").style.display = "none";
     }
 });
