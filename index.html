@@ -157,3 +157,153 @@
     </script>
   </body>
 </html>
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نافذة منبثقة متطورة لاختيار اللهجات</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<button id="openPopup" class="custom-btn">اختر لهجة</button>
+
+<div id="popup" class="popup">
+    <div class="popup-content">
+        <span id="closePopup" class="close">&times;</span>
+        <h2>اختر لهجة:</h2>
+        <ul>
+            <li><a href="http://example.com/egyptian">المصرية</a></li>
+            <li><a href="http://example.com/levantine">الشامية</a></li>
+            <li><a href="http://example.com/khaleeji">الخليجية</a></li>
+            <li><a href="http://example.com/north-african">المغربية</a></li>
+            <li><a href="http://example.com/iraqi">العراقية</a></li>
+        </ul>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
+
+<Style/>
+
+/* تصميم عام */
+body {
+    font-family: 'Cairo', sans-serif;
+    background-color: #f4f4f4;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+/* تصميم الزر */
+.custom-btn {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 30px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 25px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 100px;
+}
+
+.custom-btn:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+
+/* نافذة منبثقة */
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.4s;
+}
+
+/* محتوى النافذة */
+.popup-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 15px;
+    width: 320px;
+    text-align: center;
+    animation: popupSlide 0.5s ease-out forwards;
+}
+
+/* زر الإغلاق */
+.close {
+    float: right;
+    cursor: pointer;
+    font-size: 24px;
+    color: #888;
+    margin-top: -20px;
+    margin-right: -20px;
+    padding: 10px;
+    border-radius: 50%;
+    transition: color 0.3s ease;
+}
+
+.close:hover {
+    color: red;
+}
+
+/* تصميم الروابط */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    margin: 10px 0;
+}
+
+li a {
+    text-decoration: none;
+    color: #4CAF50;
+    font-size: 18px;
+    transition: color 0.3s ease;
+}
+
+li a:hover {
+    color: #45a049;
+}
+
+/* تأثيرات النافذة */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes popupSlide {
+    from { transform: translateY(-200px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+</Style>
+
+<Script/>
+
+document.getElementById("openPopup").addEventListener("click", function() {
+    document.getElementById("popup").style.display = "flex";
+});
+
+document.getElementById("closePopup").addEventListener("click", function() {
+    document.getElementById("popup").style.display = "none";
+});
+
+window.addEventListener("click", function(event) {
+    if (event.target == document.getElementById("popup")) {
+        document.getElementById("popup").style.display = "none";
+    }
+});
+</Script>
