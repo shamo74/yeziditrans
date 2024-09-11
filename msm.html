@@ -93,12 +93,17 @@
       </div> 
     </nav>
 </div>
-  <br/>  <br/>  <br/>  <hr/><center/>
+  <br/>  <br/>  <br/>  <hr/>
+
+
+
+ <hr/><center/>
     <iframe src="https://shamo74.github.io/new-registration/ar.html" width="310" height="700" title="Example Website">
         Your browser does not support iframes.
     </iframe>
 
-    <section class="overlay"></section>
+
+
 
     <script>
       const navBar = document.querySelector("nav"),
@@ -117,3 +122,129 @@
     </script>
   </body>
 </html>
+
+
+<Style/>
+/* تصميم عام */
+body {
+    font-family: 'Cairo', sans-serif;
+    background-color: #f4f4f4;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+/* تصميم الزر */
+.custom-btn {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 30px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 25px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    margin-top: 100px;
+}
+
+.custom-btn:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+
+/* نافذة منبثقة */
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.4s;
+}
+
+/* محتوى النافذة */
+.popup-content {
+    background-color: white;
+    padding: 40px;
+    border-radius: 20px;
+    width: 450px;
+    text-align: center;
+    animation: popupSlide 0.5s ease-out forwards;
+    max-height: 70%;
+    overflow-y: auto;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+/* زر الإغلاق */
+.close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    cursor: pointer;
+    font-size: 54px;
+    color: #888;
+    padding: 5px;
+    border-radius: 50%;
+    transition: color 0.3s ease;
+}
+
+.close:hover {
+    color: red;
+}
+
+/* تصميم الروابط */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    margin: 20px 0;
+}
+
+li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 18px;
+    background-color: #f1f1f1;
+    padding: 15px 20px;
+    border-radius: 8px;
+    display: inline-block;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    position: relative;
+}
+
+li a:hover {
+    background-color: #4CAF50;
+    color: white;
+}
+
+/* السهم */
+.arrow {
+    margin-right: 10px; /* بدلاً من margin-left لجعل السهم قبل النص */
+    font-size: 20px;
+    color: #888;
+    transition: color 0.3s ease;
+}
+
+li a:hover .arrow {
+    color: white;
+}
+
+/* تأثيرات النافذة */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes popupSlide {
+    from { transform: translateY(-200px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+</Style>
