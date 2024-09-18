@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(data => {
                 Object.assign(inukKey, data.inukKey);
                 Object.assign(SPECIAL_RESPONSES, data.SPECIAL_RESPONSES);
+                translateText();
             })
             .catch(error => console.error('حدث خطأ في جلب الملف JSON:', error));
     }
@@ -29,6 +30,10 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     function inukFunction() {
+        translateText();
+    }
+
+    function translateText() {
         var inuk = $inuk.value;
         var words = inuk.split(/\s+/);
         var result = "";
@@ -101,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function() {
             currentTranslationFile = 'translations.json'; // التحويل إلى الإنجليزية
         }
 
-        // تحميل الملف الجديد بعد التبديل
+        // تحميل الملف الجديد بعد التبديل وتحديث الترجمة
         loadTranslationFile(currentTranslationFile);
     });
 
