@@ -108,9 +108,22 @@ document.addEventListener('DOMContentLoaded', function() {
             currentTranslationFile = 'translations.json'; // التحويل إلى العربية
         }
 
+        // نقل النص بين الحقول عند تبديل اللغة
+        var temp = $inuk.value;
+        $inuk.value = $braille.value;
+        $braille.value = temp;
+
         // تحميل الملف الجديد بعد التبديل وتحديث الترجمة
         loadTranslationFile(currentTranslationFile);
     });
 
     // زر النسخ
-    const copyButton =
+    const copyButton = document.getElementById("copyButton");
+    copyButton.addEventListener("click", function() {
+        navigator.clipboard.writeText($braille.value).then(() => {
+            alert("تم نسخ النص!");
+        }).catch(err => {
+            console.error("حدث خطأ أثناء النسخ:", err);
+        });
+    });
+});
