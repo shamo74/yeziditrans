@@ -1,308 +1,282 @@
- <!DOCTYPE html>
-<!-- Coding by CodingLab | www.codinglabweb.com-->
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Yezidi.translate</title>
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="css/style.css" />
-
-    <!-- Boxicons CSS -->
-    <link
-      href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <nav>
-      <div class="logo">
-        <i class="bx bx-menu menu-icon"></i>
-        <span class="logo-name">𒀭Translate </span>
-      </div>
-
-      <div class="sidebar">
-        <div class="logo">
-          <i class="bx bx-menu menu-icon">×</i>
-          <span class="logo-name">Translate</span>
-        </div>
- 
-        <div class="sidebar-content">
-          <ul class="lists">
-            <li class="list">
-              <a href="#" class="nav-link">
-                <i class="bx bx-home-alt icon"></i>
-                <span class="link">القائمة الرئيسية</span>
-              </a>
-            </li>
-            <li class="list">
-              <a href="#" class="nav-link">
-                <i class="bx bx-microphone icon"></i>
-                <span class="link">الترجمة الصوتية</span>[ قريبًا! ]
-                
-
-              </a>
-            </li>
-            <li class="list">
-              <a href="#" class="nav-link">
-                <i class="bx bx-send icon"></i>
-                <span class="link">مساهمة الترجمة</span>
-              </a>
-            </li>
-            <li class="list">
-              <a href="idchat.html" class="nav-link">
-                <i class="bx bx-message-rounded icon"></i>
-                <span class="link">الدردشة المباشرة</span>
-              </a>
-            </li>
-            <li class="list">
-              <a href="token.html" class="nav-link">
-                <i class="bx bx-share icon"></i>
-                <span class="link">يتبرع</span>
-              </a>
-            </li>
-            <li class="list">
-              <a href="add-notos.html" class="nav-link">
-                <i class="bx bx-book icon"></i>
-                <span class="link">أضف الكلمات إلى القاموس</span>
-             
-            </li> 
-            </a>
-            </li>
-            <li class="list">
-              <a href="Yezidi-Keyboard.html" class="nav-link">
-                <i class="bx bx-pen icon"></i>
-                <span class="link">تعليم الحروف الايزيدية</span>
-             
-            </li> 
-              </div>
-
-          <div class="bottom-cotent">
-            <li class="list">
-              <a href="#" class="nav-link">
-                <i class="bx bx-cog icon"></i>
-                <span class="link">إعدادات</span>
-              </a>
-           
-            </li>
-          </div>
-          
-        </div>
-      </div> 
-    </nav>
-</div>
-  <br/>  <br/>  <br/>  <hr/>
-<!DOCTYPE html>
-<html lang="ar">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Translate</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body><center/>
-  <textarea spellcheck="false" id="inuk" placeholder="أدخل النص"></textarea>
-  <textarea contenteditable="false" id="braille" placeholder="ترجمة"></textarea>
-  <button id="copyButton">نسخ النص</button>
-<script src="script.js"></script>
-</body>
-</html>
-
-    <section class="overlay"></section>
-
-    <script>
-      const navBar = document.querySelector("nav"),
-        menuBtns = document.querySelectorAll(".menu-icon"),
-        overlay = document.querySelector(".overlay");
-
-      menuBtns.forEach((menuBtn) => {
-        menuBtn.addEventListener("click", () => {
-          navBar.classList.toggle("open");
-        });
-      });
-
-      overlay.addEventListener("click", () => {
-        navBar.classList.remove("open");
-      });
-    </script>
-  </body>
-</html>
 <!DOCTYPE html>
 <html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نافذة منبثقة متطورة لاختيار اللهجات</title>
+    <title>ترجمة Google</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
- 
-<button id="openPopup" class="custom-btn">اللهجة</button>
+    <div class="container">
+        <header>
+            <div class="profile-pic">
+                <img src="profile.jpg" alt="Profile">
+            </div>
+            <h1>ترجمة Google</h1>
+        </header>
 
-<div id="popup" class="popup">
-    <div class="popup-content">
-        <span id="closePopup" class="close">&times;</span>
-        <h2>اختر التحويل من العربية إلى اللهجة:</h2>
-        <ul>
-            <li><a href="kh-trans.html">عربي <span class="arrow">←</span> خورگي</a></li>
-            <li><a href="Ju-trans.html"> عربي <span class="arrow">←</span> جوانبي </a></li>
-            <li><a href="wt-trans.html">عربي <span class="arrow">←</span> ولاتي </a></li>
-            <li><a href="ez-rm-trans.html"> عربي <span class="arrow">←</span> ايزيدي ارميني</a></li>
-            <li><a href="ez-rus-trans.html">عربي <span class="arrow">←</span> ايزيدي روسيا </a></li>
-        </ul>
+        <main>
+            <textarea id="inuk" placeholder="إدخال نص"></textarea>
+
+            <!-- عرض النص المترجم أسفل حقل الإدخال -->
+            <div id="translationBox">
+                <textarea id="braille" readonly placeholder="الترجمة ستظهر هنا"></textarea>
+                <button id="copyButton">
+                    <img src="copy-icon.png" alt="نسخ" style="width: 24px;">
+                </button>
+            </div>
+
+            <div class="language-switch">
+                <button class="lang-btn">العربية</button>
+                <button id="swapBtn">⇄</button>
+                <button class="lang-btn">الإنجليزية</button>
+            </div>
+
+            <div class="camera-chat">
+                <button class="camera-btn">
+                    <img src="camera-icon.png" alt="الكاميرا" style="width: 24px;">
+                </button>
+                <button class="chat-btn">
+                    <img src="mic-icon.png" alt="الميكروفون" style="width: 24px;">
+                </button>
+            </div>
+        </main>
     </div>
-</div>
 
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
 
-<Style/>
-/* تصميم عام */
-body {
-    font-family: 'Cairo', sans-serif;
-    background-color: #f4f4f4;
-    text-align: center;
+<style/>
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
 }
 
-/* تصميم الزر */
-.custom-btn {
-    background-color: #4CAF50;
-    border: none;
-    color: white;
-    padding: 15px 30px;
-    font-size: 18px;
-    cursor: pointer;
-    border-radius: 25px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    margin-top: 100px;
-}
-
-.custom-btn:hover {
-    background-color: #45a049;
-    transform: scale(1.05);
-}
-
-/* نافذة منبثقة */
-.popup {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
+body {
+    background-color: #f1f1f1;
+    display: flex;
     justify-content: center;
     align-items: center;
-    animation: fadeIn 0.4s;
+    height: 100vh;
+    direction: rtl;
 }
 
-/* محتوى النافذة */
-.popup-content {
-    background-color: white;
-    padding: 40px;
+.container {
+    background-color: #fff;
+    width: 400px;
     border-radius: 20px;
-    width: 450px;
+    padding: 20px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
     text-align: center;
-    animation: popupSlide 0.5s ease-out forwards;
-    max-height: 70%;
-    overflow-y: auto;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    position: relative;
 }
 
-/* زر الإغلاق */
-.close {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    cursor: pointer;
-    font-size: 54px;
-    color: #888;
-    padding: 5px;
+header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.profile-pic img {
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
-    transition: color 0.3s ease;
+    margin-right: 10px;
 }
 
-.close:hover {
-    color: red;
-}
-
-/* تصميم الروابط */
-ul {
-    list-style: none;
-    padding: 0;
-}
-
-li {
-    margin: 20px 0;
-}
-
-li a {
-    text-decoration: none;
-    color: #333;
-    font-size: 18px;
+main textarea {
+    width: 100%;
+    height: 80px;
+    padding: 10px;
+    border: none;
     background-color: #f1f1f1;
-    padding: 15px 20px;
-    border-radius: 8px;
-    display: inline-block;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    margin-bottom: 10px;
+    font-size: 16px;
+    resize: none;
+    border-radius: 0px; /* إخفاء الزوايا */
+}
+
+#translationBox {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 10px;
 }
 
-li a:hover {
-    background-color: #4CAF50;
-    color: white;
+#copyButton {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
 }
 
-/* السهم */
-.arrow {
-    margin-right: 10px; /* بدلاً من margin-left لجعل السهم قبل النص */
-    font-size: 20px;
-    color: #888;
-    transition: color 0.3s ease;
+.language-switch {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
-li a:hover .arrow {
-    color: white;
+.lang-btn {
+    background-color: #f0f0f0;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
 }
 
-/* تأثيرات النافذة */
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+#swapBtn {
+    background-color: transparent;
+    border: none;
+    font-size: 24px;
+    color: #333;
+    cursor: pointer;
 }
 
-@keyframes popupSlide {
-    from { transform: translateY(-200px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
+.camera-chat {
+    display: flex;
+    justify-content: space-around;
 }
-</Style>
 
-<Script/>
-// عند الضغط على زر "اختر لهجة"
-document.getElementById("openPopup").addEventListener("click", function() {
-    // عرض النافذة المنبثقة
-    document.getElementById("popup").style.display = "flex";
-});
+.camera-btn, .chat-btn {
+    background-color: #e7e7e7;
+    border: none;
+    padding: 12px;
+    border-radius: 50px;
+    font-size: 16px;
+    cursor: pointer;
+}
+</style>
 
-// عند الضغط على زر الإغلاق (X)
-document.getElementById("closePopup").addEventListener("click", function() {
-    // إخفاء النافذة المنبثقة
-    document.getElementById("popup").style.display = "none";
-});
+<script/>
+document.addEventListener('DOMContentLoaded', function() {
+    var typingTimer;
+    var doneTypingInterval = 100;
+    var $inuk = document.getElementById("inuk");
+    var $braille = document.getElementById("braille");
+    var wordsWritten = [];
 
-// عند النقر في أي مكان خارج محتوى النافذة
-window.addEventListener("click", function(event) {
-    // إذا كان الهدف هو نافذة الخلفية (الشاشة المعتمة)
-    if (event.target == document.getElementById("popup")) {
-        // إخفاء النافذة المنبثقة
-        document.getElementById("popup").style.display = "none";
+    var inukKey = {};
+    const SPECIAL_RESPONSES = {};
+    var currentLanguage = 'ar'; // اللغة الافتراضية (العربية)
+
+    // تحميل ملف JSON الافتراضي عند بداية الصفحة
+    loadTranslationFile('translation-sh.json');
+
+    // وظيفة تحميل ملف JSON بناءً على اللغة المختارة
+    function loadTranslationFile(fileName) {
+        fetch(fileName)
+            .then(response => response.json())
+            .then(data => {
+                Object.assign(inukKey, data.inukKey);
+                Object.assign(SPECIAL_RESPONSES, data.SPECIAL_RESPONSES);
+            })
+            .catch(error => console.error('حدث خطأ في جلب الملف JSON:', error));
     }
+
+    // استبدال اللغات عند الضغط على السهم
+    document.getElementById("swapBtn").addEventListener("click", function() {
+        if (currentLanguage === 'ar') {
+            currentLanguage = 'en';
+            loadTranslationFile('translation.json');
+            document.querySelector('.lang-btn:first-of-type').textContent = "الإنجليزية";
+            document.querySelector('.lang-btn:last-of-type').textContent = "العربية";
+        } else {
+            currentLanguage = 'ar';
+            loadTranslationFile('translation-sh.json');
+            document.querySelector('.lang-btn:first-of-type').textContent = "العربية";
+            document.querySelector('.lang-btn:last-of-type').textContent = "الإنجليزية";
+        }
+        $inuk.value = ''; // تفريغ الحقل عند تبديل اللغة
+        $braille.value = ''; // تفريغ حقل الترجمة أيضاً
+    });
+
+    $inuk.addEventListener('keyup', function() {
+        clearTimeout(typingTimer);
+        typingTimer = setTimeout(inukFunction, doneTypingInterval);
+    });
+
+    function inukFunction() {
+        var inuk = $inuk.value;
+        var words = inuk.split(/\s+/);
+        var result = "";
+        var i = 0;
+
+        while (i < words.length) {
+            var phraseFound = false;
+
+            // تحقق من العبارات الخاصة
+            for (var phrase in SPECIAL_RESPONSES) {
+                if (SPECIAL_RESPONSES.hasOwnProperty(phrase)) {
+                    var phraseWords = phrase.split(" ");
+                    var match = true;
+
+                    for (var j = 0; j < phraseWords.length; j++) {
+                        if (words[i + j] !== phraseWords[j]) {
+                            match = false;
+                            break;
+                        }
+                    }
+
+                    if (match) {
+                        result += SPECIAL_RESPONSES[phrase] + " ";
+                        i += phraseWords.length;
+                        phraseFound = true;
+                        break;
+                    }
+                }
+            }
+
+            if (!phraseFound) {
+                var word = words[i];
+
+                // التحقق من عدم تكرار الكلمة في القائمة
+                if (!wordsWritten.includes(word)) {
+                    wordsWritten.push(word); // إضافة الكلمة إلى القائمة
+                }
+
+                var translated = false;
+                for (var key in inukKey) {
+                    if (inukKey.hasOwnProperty(key)) {
+                        if (word === key) {
+                            result += inukKey[key][0] + " " + inukKey[key][1] + " ";
+                            translated = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (!translated) {
+                    result += word + " ";
+                }
+                i++;
+            }
+        }
+
+        $braille.value = result.trim();
+    }
+
+    // كود النسخ
+    const copyButton = document.getElementById('copyButton');
+    const brailleTextarea = document.getElementById('braille');
+
+    copyButton.addEventListener('click', () => {
+        // تحديد النص في الحقل الثاني
+        brailleTextarea.select();
+        brailleTextarea.setSelectionRange(0, 99999);
+
+        // نسخ النص إلى الحافظة
+        document.execCommand('copy');
+        
+        // إزالة التحديد
+        window.getSelection().removeAllRanges();
+
+        alert('تم نسخ النص بنجاح!');
+    });
 });
-</Script>
+</script/>
