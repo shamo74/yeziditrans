@@ -91,11 +91,17 @@ document.addEventListener('DOMContentLoaded', function() {
         $braille.value = result.trim();
     }
 
-    // تبديل اللغات عند الضغط على السهم
+    // تبديل اللغات والنصوص عند الضغط على السهم
     document.getElementById('swapBtn').addEventListener('click', function() {
         var fromLangBtn = document.getElementById('fromLang');
         var toLangBtn = document.getElementById('toLang');
 
+        // تبديل النصوص بين الحقول
+        var tempText = $inuk.value;
+        $inuk.value = $braille.value;
+        $braille.value = tempText;
+
+        // تبديل اللغات
         if (fromLangBtn.textContent === 'العربية') {
             fromLangBtn.textContent = 'الإنجليزية';
             toLangBtn.textContent = 'العربية';
@@ -107,11 +113,6 @@ document.addEventListener('DOMContentLoaded', function() {
             document.body.style.direction = "rtl"; // من اليمين لليسار
             currentTranslationFile = 'translations.json'; // التحويل إلى العربية
         }
-
-        // نقل النص بين الحقول عند تبديل اللغة
-        var temp = $inuk.value;
-        $inuk.value = $braille.value;
-        $braille.value = temp;
 
         // تحميل الملف الجديد بعد التبديل وتحديث الترجمة
         loadTranslationFile(currentTranslationFile);
