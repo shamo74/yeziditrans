@@ -10,15 +10,14 @@ document.addEventListener('DOMContentLoaded', function() {
     var currentLanguage = 'ar'; // اللغة الافتراضية (العربية)
 
     // تحميل ملف JSON الافتراضي عند بداية الصفحة
-    loadTranslationFile('translation-sh.json');
+    loadTranslationFile('ar.json'); // الملف الافتراضي للعربية
 
     // وظيفة تحميل ملف JSON بناءً على اللغة المختارة
     function loadTranslationFile(fileName) {
         fetch(fileName)
             .then(response => response.json())
             .then(data => {
-                Object.assign(inukKey, data.inukKey);
-                Object.assign(SPECIAL_RESPONSES, data.SPECIAL_RESPONSES);
+                inukKey = data.inukKey; // تحميل البيانات من ملف JSON
             })
             .catch(error => console.error('حدث خطأ في جلب الملف JSON:', error));
     }
@@ -27,12 +26,12 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById("swapBtn").addEventListener("click", function() {
         if (currentLanguage === 'ar') {
             currentLanguage = 'en';
-            loadTranslationFile('translation.json');
+            loadTranslationFile('en.json'); // تحميل ملف اللغة الإنجليزية
             document.querySelector('.lang-btn:first-of-type').textContent = "الإنجليزية";
             document.querySelector('.lang-btn:last-of-type').textContent = "العربية";
         } else {
             currentLanguage = 'ar';
-            loadTranslationFile('translation-sh.json');
+            loadTranslationFile('ar.json'); // تحميل ملف اللغة العربية
             document.querySelector('.lang-btn:first-of-type').textContent = "العربية";
             document.querySelector('.lang-btn:last-of-type').textContent = "الإنجليزية";
         }
@@ -52,54 +51,27 @@ document.addEventListener('DOMContentLoaded', function() {
         var i = 0;
 
         while (i < words.length) {
-            var phraseFound = false;
+            var word = words[i];
 
-            // تحقق من العبارات الخاصة
-            for (var phrase in SPECIAL_RESPONSES) {
-                if (SPECIAL_RESPONSES.hasOwnProperty(phrase)) {
-                    var phraseWords = phrase.split(" ");
-                    var match = true;
+            if (!wordsWritten.includes(word)) {
+                wordsWritten.push(word); // إضافة الكلمة إلى القائمة
+            }
 
-                    for (var j = 0; j < phraseWords.length; j++) {
-                        if (words[i + j] !== phraseWords[j]) {
-                            match = false;
-                            break;
-                        }
-                    }
-
-                    if (match) {
-                        result += SPECIAL_RESPONSES[phrase] + " ";
-                        i += phraseWords.length;
-                        phraseFound = true;
+            var translated = false;
+            for (var key in inukKey) {
+                if (inukKey.hasOwnProperty(key)) {
+                    if (word === key) {
+                        result += inukKey[key] + " "; // استخدام الترجمة من JSON
+                        translated = true;
                         break;
                     }
                 }
             }
 
-            if (!phraseFound) {
-                var word = words[i];
-
-                // التحقق من عدم تكرار الكلمة في القائمة
-                if (!wordsWritten.includes(word)) {
-                    wordsWritten.push(word); // إضافة الكلمة إلى القائمة
-                }
-
-                var translated = false;
-                for (var key in inukKey) {
-                    if (inukKey.hasOwnProperty(key)) {
-                        if (word === key) {
-                            result += inukKey[key][0] + " " + inukKey[key][1] + " ";
-                            translated = true;
-                            break;
-                        }
-                    }
-                }
-
-                if (!translated) {
-                    result += word + " ";
-                }
-                i++;
+            if (!translated) {
+                result += word + " "; // استخدام الكلمة الأصلية إذا لم توجد ترجمة
             }
+            i++;
         }
 
         $braille.value = result.trim();
