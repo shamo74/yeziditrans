@@ -26,12 +26,12 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById("swapBtn").addEventListener("click", function() {
         if (currentLanguage === 'ar') {
             currentLanguage = 'en';
-            loadTranslationFile('en.json'); // تحميل ملف اللغة الإنجليزية
+            loadTranslationFile('translations.json'); // تحميل ملف اللغة الإنجليزية
             document.querySelector('.lang-btn:first-of-type').textContent = "الإنجليزية";
             document.querySelector('.lang-btn:last-of-type').textContent = "العربية";
         } else {
             currentLanguage = 'ar';
-            loadTranslationFile('ar.json'); // تحميل ملف اللغة العربية
+            loadTranslationFile('translations-sh.json'); // تحميل ملف اللغة العربية
             document.querySelector('.lang-btn:first-of-type').textContent = "العربية";
             document.querySelector('.lang-btn:last-of-type').textContent = "الإنجليزية";
         }
