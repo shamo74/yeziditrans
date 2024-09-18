@@ -3,44 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ترجمة Google</title>
+    <title>ترجمة</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <div class="profile-pic">
-                <img src="profile.jpg" alt="Profile">
-            </div>
-            <h1>ترجمة Google</h1>
+            <h1>ترجمة نص</h1>
         </header>
+        
+        <!-- حقل إدخال النص -->
+        <textarea id="inuk" placeholder="إدخال نص"></textarea>
 
-        <main>
-            <textarea id="inuk" placeholder="إدخال نص"></textarea>
+        <!-- زر النسخ -->
+        <button id="copyButton">
+            <img src="paste-icon.png" alt="نسخ">
+        </button>
 
-            <!-- عرض النص المترجم أسفل حقل الإدخال -->
-            <div id="translationBox">
-                <textarea id="braille" readonly placeholder="الترجمة ستظهر هنا"></textarea>
-                <button id="copyButton">
-                    <img src="copy-icon.png" alt="نسخ" style="width: 24px;">
-                </button>
-            </div>
+        <!-- حقل النص المترجم -->
+        <textarea id="braille" placeholder="الترجمة تظهر هنا" readonly></textarea>
 
-            <div class="language-switch">
-                <button class="lang-btn">العربية</button>
-                <button id="swapBtn">⇄</button>
-                <button class="lang-btn">الإنجليزية</button>
-            </div>
+        <!-- تبديل اللغات -->
+        <div class="language-switch">
+            <button class="lang-btn" id="fromLang">العربية</button>
+            <button id="swapBtn">⇄</button>
+            <button class="lang-btn" id="toLang">الإنجليزية</button>
+        </div>
 
-            <div class="camera-chat">
-                <button class="camera-btn">
-                    <img src="camera-icon.png" alt="الكاميرا" style="width: 24px;">
-                </button>
-                <button class="chat-btn">
-                    <img src="mic-icon.png" alt="الميكروفون" style="width: 24px;">
-                </button>
-            </div>
-        </main>
+        <!-- الأزرار السفلية (الكاميرا والمحادثة) -->
+        <div class="camera-chat">
+            <button class="camera-btn">
+                <img src="camera-icon.png" alt="كاميرا">
+            </button>
+            <button class="chat-btn">
+                <img src="mic-icon.png" alt="ميكروفون">
+            </button>
+        </div>
     </div>
 
     <script src="script.js"></script>
