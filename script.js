@@ -99,11 +99,13 @@ document.addEventListener('DOMContentLoaded', function() {
         if (fromLangBtn.textContent === 'العربية') {
             fromLangBtn.textContent = 'الإنجليزية';
             toLangBtn.textContent = 'العربية';
-            currentTranslationFile = 'translations-sh.json'; // التحويل إلى العربية
+            document.body.style.direction = "ltr"; // من اليسار لليمين
+            currentTranslationFile = 'translations-sh.json'; // التحويل إلى الإنجليزية
         } else {
             fromLangBtn.textContent = 'العربية';
             toLangBtn.textContent = 'الإنجليزية';
-            currentTranslationFile = 'translations.json'; // التحويل إلى الإنجليزية
+            document.body.style.direction = "rtl"; // من اليمين لليسار
+            currentTranslationFile = 'translations.json'; // التحويل إلى العربية
         }
 
         // تحميل الملف الجديد بعد التبديل وتحديث الترجمة
@@ -111,14 +113,4 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // زر النسخ
-    const copyButton = document.getElementById('copyButton');
-    const brailleTextarea = document.getElementById('braille');
-
-    copyButton.addEventListener('click', () => {
-        brailleTextarea.select();
-        brailleTextarea.setSelectionRange(0, 99999);
-        document.execCommand('copy');
-        window.getSelection().removeAllRanges();
-        alert('تم نسخ النص بنجاح!');
-    });
-});
+    const copyButton =
