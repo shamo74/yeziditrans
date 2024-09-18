@@ -46,3 +46,164 @@
     <script src="script.js"></script>
 </body>
 </html>
+<style/>
+/* تصميم الجسم العام */
+body {
+    font-family: 'Tajawal', sans-serif;
+    background-color: #f0f4f7;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+}
+
+/* تصميم الحاوية */
+.container {
+    width: 100%;
+    max-width: 400px;
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* تصميم الرأس */
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* صورة الملف الشخصي */
+.profile-pic img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+/* عنوان الترجمة */
+h1 {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin: 0;
+}
+
+/* حقل إدخال النص */
+textarea {
+    width: 100%;
+    height: 80px;
+    padding: 10px;
+    font-size: 1.2em;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    resize: none;
+    background-color: #f8f9fa;
+    outline: none;
+}
+
+/* تنسيق النص المترجم */
+#braille {
+    background-color: #e9ecef;
+    color: #495057;
+}
+
+/* تصميم زر النسخ */
+#copyButton {
+    background-color: #e9ecef;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#copyButton img {
+    width: 24px;
+}
+
+/* تصميم زر تغيير اللغة */
+.language-switch {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.lang-btn {
+    width: 40%;
+    padding: 10px;
+    background-color: #e9ecef;
+    border: none;
+    border-radius: 10px;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+#swapBtn {
+    width: 15%;
+    background-color: #4a9bda;
+    border: none;
+    border-radius: 50%;
+    color: white;
+    font-size: 1.5em;
+    cursor: pointer;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* تصميم الأزرار السفلية (الكاميرا والميكروفون) */
+.camera-chat {
+    display: flex;
+    justify-content: space-between;
+}
+
+.camera-btn, .chat-btn {
+    background-color: #f8f9fa;
+    border: none;
+    border-radius: 50%;
+    padding: 10px;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.camera-btn img, .chat-btn img {
+    width: 24px;
+}
+
+/* الرسائل المنبثقة */
+.alert {
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px;
+    margin-bottom: 15px;
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 9999;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* إخفاء زوايا الحقل */
+textarea {
+    border-radius: 10px;
+}
+
+    </style>
