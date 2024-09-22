@@ -1,5 +1,3 @@
- 
-   
 <!DOCTYPE html>
 <html lang="ar">
 <head>
@@ -9,7 +7,6 @@
 </head>
 <body>
 	<link rel="stylesheet" href="style.css">
-		
   <div class="language-switcher">
     <select id="languageSelector1">
       <option value="arabic">العربية</option>
@@ -27,6 +24,10 @@
       <option value="walati">الولاتية</option>
     </select>
   </div>
-	<script src="script.js"></script>
+
+  <textarea spellcheck="false" id="inuk" placeholder="أدخل النص"></textarea>
+  <textarea contenteditable="false" id="braille" placeholder="ترجمة"></textarea>
+  <button id="copyButton">نسخ النص</button>
+<script src="script.js"></script>
 
   
