@@ -1,130 +1,110 @@
 document.addEventListener('DOMContentLoaded', function() {
-    var typingTimer;
-    var doneTypingInterval = 100;
-    var $inuk = document.getElementById("inuk");
-    var $braille = document.getElementById("braille");
-    var wordsWritten = [];
-    var inukKey = {};
-    var SPECIAL_RESPONSES = {};
+            var typingTimer;
+            var doneTypingInterval = 100;
+            var $inuk = document.getElementById("inuk");
+            var $braille = document.getElementById("braille");
+            var wordsWritten = []; // قائمة تخزين الكلمات المكتوبة
 
-    var currentTranslationFile = 'translations.json'; // الملف الافتراضي
+            var inukKey = {};
+            const SPECIAL_RESPONSES = {};
 
-    // تحميل محتويات JSON بناءً على اللغة المختارة
-    function loadTranslationFile(fileName) {
-        fetch(fileName)
-            .then(response => response.json())
-            .then(data => {
-                Object.assign(inukKey, data.inukKey);
-                Object.assign(SPECIAL_RESPONSES, data.SPECIAL_RESPONSES);
-                translateText();
-            })
-            .catch(error => console.error('حدث خطأ في جلب الملف JSON:', error));
-    }
+            // جلب محتوى ملف JSON
+            fetch('translations-sh.json')
+                .then(response => response.json())
+                .then(data => {
+                    // تحديث inukKey و SPECIAL_RESPONSES بالمحتوى المسترجع
+                    Object.assign(inukKey, data.inukKey);
+                    Object.assign(SPECIAL_RESPONSES, data.SPECIAL_RESPONSES);
+                })
+                .catch(error => console.error('حدث خطأ في جلب الملف JSON:', error));
 
-    // تحميل الملف الافتراضي عند بدء الصفحة
-    loadTranslationFile(currentTranslationFile);
+            $inuk.addEventListener('keyup', function() {
+                clearTimeout(typingTimer);
+                typingTimer = setTimeout(inukFunction, doneTypingInterval);
+            });
 
-    $inuk.addEventListener('keyup', function() {
-        clearTimeout(typingTimer);
-        typingTimer = setTimeout(inukFunction, doneTypingInterval);
-    });
+            function inukFunction() {
+                var inuk = $inuk.value;
+                var words = inuk.split(/\s+/); // تقسيم النص إلى كلمات بمسافة
+                var result = "";
+                var i = 0;
 
-    function inukFunction() {
-        translateText();
-    }
+                while (i < words.length) {
+                    var phraseFound = false;
 
-    function translateText() {
-        var inuk = $inuk.value;
-        var words = inuk.split(/\s+/);
-        var result = "";
-        var i = 0;
+                    // تحقق من العبارات الخاصة
+                    for (var phrase in SPECIAL_RESPONSES) {
+                        if (SPECIAL_RESPONSES.hasOwnProperty(phrase)) {
+                            var phraseWords = phrase.split(" ");
+                            var match = true;
 
-        while (i < words.length) {
-            var phraseFound = false;
+                            for (var j = 0; j < phraseWords.length; j++) {
+                                if (words[i + j] !== phraseWords[j]) {
+                                    match = false;
+                                    break;
+                                }
+                            }
 
-            for (var phrase in SPECIAL_RESPONSES) {
-                if (SPECIAL_RESPONSES.hasOwnProperty(phrase)) {
-                    var phraseWords = phrase.split(" ");
-                    var match = true;
-
-                    for (var j = 0; j < phraseWords.length; j++) {
-                        if (words[i + j] !== phraseWords[j]) {
-                            match = false;
-                            break;
+                            if (match) {
+                                result += SPECIAL_RESPONSES[phrase] + " ";
+                                i += phraseWords.length;
+                                phraseFound = true;
+                                break;
+                            }
                         }
                     }
 
-                    if (match) {
-                        result += SPECIAL_RESPONSES[phrase] + " ";
-                        i += phraseWords.length;
-                        phraseFound = true;
-                        break;
-                    }
-                }
-            }
+                    if (!phraseFound) {
+                        var word = words[i];
 
-            if (!phraseFound) {
-                var word = words[i];
-
-                if (!wordsWritten.includes(word)) {
-                    wordsWritten.push(word);
-                }
-
-                var translated = false;
-                for (var key in inukKey) {
-                    if (inukKey.hasOwnProperty(key)) {
-                        if (word === key) {
-                            result += inukKey[key][0] + " " + inukKey[key][1] + " ";
-                            translated = true;
-                            break;
+                        // التحقق من عدم تكرار الكلمة في القائمة
+                        if (!wordsWritten.includes(word)) {
+                            wordsWritten.push(word); // إضافة الكلمة إلى القائمة
                         }
+
+                        var translated = false;
+                        for (var key in inukKey) {
+                            if (inukKey.hasOwnProperty(key)) {
+                                if (word === key) { // بحث عن الكلمة المطابقة
+                                    result += inukKey[key][0] + " " + inukKey[key][1] + " ";
+                                    translated = true;
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (!translated) {
+                            // استبدال الحروف المطلوبة بالحروف الجديدة
+                            word = word.split('').map((char) => {
+                                if (char === 'كل') return 'همو';
+
+                                if (char === '') return '';
+                                return char;
+                            }).join('');
+                            result += word + " ";
+                        }
+                        i++;
                     }
                 }
 
-                if (!translated) {
-                    result += word + " ";
-                }
-                i++;
+                $braille.value = result.trim();
             }
-        }
-
-        $braille.value = result.trim();
-    }
-
-    // تبديل اللغات والنصوص عند الضغط على السهم
-    document.getElementById('swapBtn').addEventListener('click', function() {
-        var fromLangBtn = document.getElementById('fromLang');
-        var toLangBtn = document.getElementById('toLang');
-
-        // تبديل النصوص بين الحقول
-        var tempText = $inuk.value;
-        $inuk.value = $braille.value;
-        $braille.value = tempText;
-
-        // تبديل اللغات
-        if (fromLangBtn.textContent === 'العربية') {
-            fromLangBtn.textContent = 'الإنجليزية';
-            toLangBtn.textContent = 'العربية';
-            document.body.style.direction = "ltr"; // من اليسار لليمين
-            currentTranslationFile = 'translations-sh.json'; // التحويل إلى الإنجليزية
-        } else {
-            fromLangBtn.textContent = 'العربية';
-            toLangBtn.textContent = 'الإنجليزية';
-            document.body.style.direction = "rtl"; // من اليمين لليسار
-            currentTranslationFile = 'translations.json'; // التحويل إلى العربية
-        }
-
-        // تحميل الملف الجديد بعد التبديل وتحديث الترجمة
-        loadTranslationFile(currentTranslationFile);
-    });
-
-    // زر النسخ
-    const copyButton = document.getElementById("copyButton");
-    copyButton.addEventListener("click", function() {
-        navigator.clipboard.writeText($braille.value).then(() => {
-            alert("تم نسخ النص!");
-        }).catch(err => {
-            console.error("حدث خطأ أثناء النسخ:", err);
         });
-    });
-});
+
+        const copyButton = document.getElementById('copyButton');
+        const brailleTextarea = document.getElementById('braille');
+
+        copyButton.addEventListener('click', () => {
+            // تحديد النص في الحقل الثاني
+            brailleTextarea.select();
+            brailleTextarea.setSelectionRange(0, 99999); // للدعم الجيد للمتصفحات
+
+            // نسخ النص إلى الحافظة
+            document.execCommand('copy');
+            
+            // إزالة التحديد من الحقل
+            window.getSelection().removeAllRanges();
+
+            // رسالة تأكيد النسخ
+            alert('تم نسخ النص بنجاح!');
+        });
