@@ -99,16 +99,35 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Translate</title>
-  <link rel="stylesheet" href="style.css">
+  <title>ترجمة النص</title>
 </head>
-<body><center/>
+<body>
+	<link rel="stylesheet" href="style.css">
+		
+  <div class="language-switcher">
+    <select id="languageSelector1">
+      <option value="arabic">العربية</option>
+      <option value="ezidi">الإيزيدية</option>
+      <option value="khwark">الخواركية</option>
+      <option value="juanbi">الحوانبية</option>
+      <option value="walati">الولاتية</option>
+    </select>
+    <span class="switch-arrow" id="switchArrow">⇆</span>
+    <select id="languageSelector2">
+      <option value="ezidi">الإيزيدية</option>
+      <option value="arabic">العربية</option>
+      <option value="khwark">الخواركية</option>
+      <option value="juanbi">الحوانبية</option>
+      <option value="walati">الولاتية</option>
+    </select>
+  </div>
+
   <textarea spellcheck="false" id="inuk" placeholder="أدخل النص"></textarea>
   <textarea contenteditable="false" id="braille" placeholder="ترجمة"></textarea>
   <button id="copyButton">نسخ النص</button>
 <script src="script.js"></script>
-</body>
-</html>
+
+  
 
     <section class="overlay"></section>
 
