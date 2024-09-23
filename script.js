@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const SPECIAL_RESPONSES = {};
   const jsonLinks = {
     "arabic": "arabic.json",
-    "ezidi": "ezidi.json",
+    "ezidi": "translation.json",
     "khwark": "khwark.json",
     "juanbi": "juanbi.json",
     "walati": "walati.json"
