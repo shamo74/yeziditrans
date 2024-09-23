@@ -4,30 +4,36 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ترجمة النص</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-	<link rel="stylesheet" href="style.css">
-  <div class="language-switcher">
-    <select id="languageSelector1">
-      <option value="arabic">العربية</option>
-      <option value="translations">الإيزيدية</option>
-      <option value="khwark">الخواركية</option>
-      <option value="juanbi">الحوانبية</option>
-      <option value="walati">الولاتية</option>
-    </select>
-    <span class="switch-arrow" id="switchArrow">⇆</span>
-    <select id="languageSelector2">
-      <option value="translations">الإيزيدية</option>
-      <option value="arabic">العربية</option>
-      <option value="khwark">الخواركية</option>
-      <option value="juanbi">الحوانبية</option>
-      <option value="walati">الولاتية</option>
-    </select>
+  <h1>Translator</h1>
+  <div class="translation-container">
+    <div class="text-box">
+      <textarea id="textInput" placeholder="أدخل النص هنا"></textarea>
+      <button class="copy-btn">📋</button>
+    </div>
+    <div class="switcher">
+      <select id="languageSelector1">
+        <option value="arabic">العربية</option>
+        <option value="ezidi">الإيزيدية</option>
+        <option value="khwark">الخواركية</option>
+        <option value="juanbi">الحوانبية</option>
+        <option value="walati">الولاتية</option>
+      </select>
+      <button id="switchButton">🔁</button>
+      <select id="languageSelector2">
+        <option value="english">English</option>
+        <option value="arabic">العربية</option>
+        <option value="ezidi">الإيزيدية</option>
+      </select>
+    </div>
+    <div class="text-box">
+      <textarea id="textOutput" placeholder="الترجمة"></textarea>
+      <button class="copy-btn">📋</button>
+    </div>
   </div>
-
-  <textarea spellcheck="false" id="inuk" placeholder="أدخل النص"></textarea>
-  <textarea contenteditable="false" id="braille" placeholder="ترجمة"></textarea>
-  <button id="copyButton">نسخ النص</button>
-<script src="script.js"></script>
-
-  
+  <button id="translateButton" class="translate-btn">Translate</button>
+  <script src="script.js"></script>
+</body>
+</html>
