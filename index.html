@@ -4,33 +4,38 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ترجمة النص</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  	
 </head>
 <body>
-  <div class="language-switcher">
-    <select id="languageSelector1">
-      <option value="arabic">العربية</option>
-      <option value="ezidi">الإيزيدية</option>
-      <option value="khwark">الخواركية</option>
-      <option value="juanbi">الحوانبية</option>
-      <option value="walati">الولاتية</option>
-    </select>
-    <span class="switch-arrow" id="switchArrow">⇆</span>
-    <select id="languageSelector2">
-      <option value="ezidi">الإيزيدية</option>
-      <option value="arabic">العربية</option>
-      <option value="khwark">الخواركية</option>
-      <option value="juanbi">الحوانبية</option>
-      <option value="walati">الولاتية</option>
-    </select>
+  <div class="container">
+    <h1>ترجمة النص</h1>
+    <div class="language-switcher">
+      <select id="languageSelector1">
+        <option value="arabic">العربية</option>
+        <option value="ezidi">الإيزيدية</option>
+        <option value="khwark">الخواركية</option>
+        <option value="juanbi">الحوانبية</option>
+        <option value="walati">الولاتية</option>
+      </select>
+      <span class="switch-arrow" id="switchArrow"><i class="fas fa-exchange-alt"></i></span>
+      <select id="languageSelector2">
+        <option value="ezidi">الإيزيدية</option>
+        <option value="arabic">العربية</option>
+        <option value="khwark">الخواركية</option>
+        <option value="juanbi">الحوانبية</option>
+        <option value="walati">الولاتية</option>
+      </select>
+    </div>
+
+    <textarea spellcheck="false" id="inuk" placeholder="أدخل النص"></textarea>
+    <div class="hint">يمكنك لصق النص هنا</div>
+    <div class="clipboard-hint">لصق أو Clipboard Text Here</div>
+    <textarea class="translated-text" id="braille" readonly onclick="copyText()">ترجمة النص هنا</textarea>
+    <button id="copyButton">نسخ النص</button>
   </div>
 
-  <textarea spellcheck="false" id="inuk" placeholder="أدخل النص"></textarea>
-  <textarea contenteditable="false" id="braille" placeholder="ترجمة"></textarea>
-  <button id="copyButton">نسخ النص</button>
-
+  <audio id="keypressSound" src="keypress.mp3" preload="auto"></audio>
   <script src="script.js"></script>
-  
 </body>
 </html>
