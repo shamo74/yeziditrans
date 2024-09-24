@@ -13,14 +13,16 @@ document.addEventListener('DOMContentLoaded', function() {
     "walati": "walati.json"
   };
 
-  function loadLanguage(language, isInput) {
+  function loadLanguage(language, translateInput = true) {
     fetch(jsonLinks[language])
       .then(response => response.json())
       .then(data => {
         inukKey = data.inukKey || {};
         Object.assign(SPECIAL_RESPONSES, data.SPECIAL_RESPONSES || {});
-        if (!isInput) {
+        if (translateInput) {
           inukFunction();
+        } else {
+          translateBrailleToInuk();
         }
       })
       .catch(error => console.error('حدث خطأ في جلب الملف JSON:', error));
@@ -58,13 +60,8 @@ document.addEventListener('DOMContentLoaded', function() {
   loadLanguage(languageSelector1.value, true);
 
   $inuk.addEventListener('keyup', function() {
-    const keypressSound = document.getElementById('keypressSound');
-    keypressSound.currentTime = 0;
-    keypressSound.play();
-
     clearTimeout(typingTimer);
     typingTimer = setTimeout(inukFunction, doneTypingInterval);
-    adjustFontSize($inuk.value);
   });
 
   function inukFunction() {
@@ -104,20 +101,44 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     $braille.value = result.trim();
-    adjustFontSize($braille.value);
   }
 
-  function adjustFontSize(text) {
-    const wordCount = text.split(/\s+/).length;
-    const baseSize = 20;
-    const newSize = baseSize - Math.min(10, Math.floor(wordCount / 3));
-    $braille.style.fontSize = `${newSize}px`;
-  }
+  function translateBrailleToInuk() {
+    const brailleText = $braille.value;
+    const words = brailleText.split(/\s+/);
+    let result = "";
+    let i = 0;
 
-  const copyButton = document.getElementById('copyButton');
-  copyButton.addEventListener('click', function() {
-    $braille.select();
-    document.execCommand('copy');
-    alert("تم نسخ النص!");
-  });
+    while (i < words.length) {
+      let phraseFound = false;
+
+      for (const phrase in SPECIAL_RESPONSES) {
+        const phraseWords = phrase.split(" ");
+        let match = true;
+
+        for (let j = 0; j < phraseWords.length; j++) {
+          if (words[i + j] !== phraseWords[j]) {
+            match = false;
+            break;
+          }
+        }
+
+        if (match) {
+          result += SPECIAL_RESPONSES[phrase] + " ";
+          i += phraseWords.length;
+          phraseFound = true;
+          break;
+        }
+      }
+
+      if (!phraseFound) {
+        let word = words[i];
+        const translated = Object.keys(inukKey).find(key => inukKey[key] === word) || word;
+        result += translated + " ";
+        i++;
+      }
+    }
+
+    $inuk.value = result.trim();
+  }
 });
