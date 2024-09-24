@@ -7,18 +7,21 @@ document.addEventListener('DOMContentLoaded', function() {
   const SPECIAL_RESPONSES = {};
   const jsonLinks = {
     "arabic": "arabic.json",
-    "ezidi": "translation.json",
+    "ezidi": "ezidi.json",
     "khwark": "khwark.json",
     "juanbi": "juanbi.json",
     "walati": "walati.json"
   };
 
-  function loadLanguage(language) {
+  function loadLanguage(language, isInput) {
     fetch(jsonLinks[language])
       .then(response => response.json())
       .then(data => {
         inukKey = data.inukKey || {};
         Object.assign(SPECIAL_RESPONSES, data.SPECIAL_RESPONSES || {});
+        if (!isInput) {
+          inukFunction();
+        }
       })
       .catch(error => console.error('حدث خطأ في جلب الملف JSON:', error));
   }
@@ -27,11 +30,11 @@ document.addEventListener('DOMContentLoaded', function() {
   const languageSelector2 = document.getElementById('languageSelector2');
 
   languageSelector1.addEventListener('change', function() {
-    loadLanguage(this.value);
+    loadLanguage(this.value, true);
   });
 
   languageSelector2.addEventListener('change', function() {
-    loadLanguage(this.value);
+    loadLanguage(this.value, false);
   });
 
   const switchArrow = document.getElementById('switchArrow');
@@ -44,15 +47,20 @@ document.addEventListener('DOMContentLoaded', function() {
     const tempValue = languageSelector1.value;
     languageSelector1.value = languageSelector2.value;
     languageSelector2.value = tempValue;
-    loadLanguage(languageSelector1.value);
+
+    const tempText = $inuk.value;
+    $inuk.value = $braille.value;
+    $braille.value = tempText;
+
+    loadLanguage(languageSelector1.value, true);
   });
 
-  loadLanguage(languageSelector1.value);
+  loadLanguage(languageSelector1.value, true);
 
   $inuk.addEventListener('keyup', function() {
     const keypressSound = document.getElementById('keypressSound');
-    keypressSound.currentTime = 0; // إعادة تشغيل الصوت
-    keypressSound.play(); // تشغيل الصوت
+    keypressSound.currentTime = 0;
+    keypressSound.play();
 
     clearTimeout(typingTimer);
     typingTimer = setTimeout(inukFunction, doneTypingInterval);
@@ -102,34 +110,14 @@ document.addEventListener('DOMContentLoaded', function() {
   function adjustFontSize(text) {
     const wordCount = text.split(/\s+/).length;
     const baseSize = 20;
-    const maxSize = 30;
-    const minSize = 15;
-    const fontSize = Math.max(minSize, Math.min(maxSize, baseSize - wordCount * 0.5));
-    $inuk.style.fontSize = fontSize + 'px';
-    $braille.style.fontSize = fontSize + 'px';
+    const newSize = baseSize - Math.min(10, Math.floor(wordCount / 3));
+    $braille.style.fontSize = `${newSize}px`;
   }
 
   const copyButton = document.getElementById('copyButton');
-
-  copyButton.addEventListener('click', () => {
-    const translatedText = $braille.value;
-    navigator.clipboard.writeText(translatedText)
-      .then(() => {
-        alert('تم نسخ النص بنجاح!');
-      })
-      .catch(err => {
-        console.error('حدث خطأ أثناء النسخ:', err);
-      });
+  copyButton.addEventListener('click', function() {
+    $braille.select();
+    document.execCommand('copy');
+    alert("تم نسخ النص!");
   });
-
-  function copyText() {
-    const translatedText = $braille.value;
-    navigator.clipboard.writeText(translatedText)
-      .then(() => {
-        alert('تم نسخ النص المترجم بنجاح!');
-      })
-      .catch(err => {
-        console.error('حدث خطأ أثناء النسخ:', err);
-      });
-  }
 });
