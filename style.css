@@ -1,110 +1,99 @@
 body {
-  font-family: 'Roboto', sans-serif;
-  direction: rtl;
-  text-align: center;
-  background-color: #f1f1f1;
-  margin: 0;
-  padding: 20px;
+    font-family: 'Roboto', sans-serif;
+    direction: rtl;
+    text-align: center;
+    background-color: #f1f1f1;
+    margin: 0;
+    padding: 20px;
 }
-
 .container {
-  background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-  padding: 30px;
-  max-width: 600px;
-  margin: auto;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    max-width: 600px;
+    margin: auto;
 }
-
 h1 {
-  font-size: 24px;
-  color: #202124;
-  margin-bottom: 20px;
+    font-size: 24px;
+    color: #202124;
+    margin-bottom: 20px;
 }
-
 .language-switcher {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
 }
-
 .language-switcher select {
-  font-size: 18px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin: 0 10px;
-  background-color: #f8f9fa;
-  appearance: none;
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="gray" d="M7 10l5 5 5-5H7z"/></svg>');
-  background-repeat: no-repeat;
-  background-position: right 10px center;
-  background-size: 12px;
-  transition: border-color 0.3s;
+    font-size: 18px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 0 10px;
+    background-color: #f8f9fa;
+    appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="gray" d="M7 10l5 5 5-5H7z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px;
+    transition: border-color 0.3s;
 }
-
 .language-switcher select:hover {
-  border-color: #4285f4;
+    border-color: #4285f4;
 }
-
 .switch-arrow {
-  font-size: 24px;
-  margin: 0 10px;
-  cursor: pointer;
-  color: #555;
-  transition: transform 0.5s;
+    font-size: 24px;
+    margin: 0 10px;
+    cursor: pointer;
+    color: #555;
+    transition: transform 0.5s;
 }
-
 .switch-arrow.rotating {
-  transform: rotate(360deg);
+    transform: rotate(360deg);
 }
-
 textarea {
-  width: 100%;
-  height: 100px;
-  margin: 10px 0;
-  font-size: 16px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  resize: none;
-  background-color: #f8f9fa;
+    width: 100%;
+    height: 100px;
+    margin: 10px 0;
+    font-size: 16px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none;
+    background-color: #f8f9fa;
 }
-
 .translated-text {
-  width: 100%;
-  height: 100px;
-  padding: 10px;
-  border-radius: 5px;
-  background-color: #ffffff;
-  border: 1px solid #ccc;
-  color: #333;
-  text-align: right;
-  resize: none;
-  outline: none;
-  transition: font-size 0.3s;
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    color: #333;
+    text-align: right;
+    resize: none;
+    outline: none;
+    transition: font-size 0.3s;
 }
-
 button {
-  padding: 10px 20px;
-  font-size: 15px;
-  background-color: #4285f4;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
+    padding: 10px 20px;
+    font-size: 15px;
+    background-color: #4285f4;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-left: 10px; /* إضافة مسافة بين الأزرار */
 }
-
 button:hover {
-  background-color: #357ae8;
+    background-color: #357ae8;
 }
-
-.hint, .clipboard-hint {
-  font-size: 12px;
-  color: #777;
-  text-align: left;
-  margin-top: -10px;
-  margin-bottom: 10px;
+.hint {
+    font-size: 12px;
+    color: #777;
+    text-align: left;
+    margin-top: -10px;
+    margin-bottom: 10px;
 }
