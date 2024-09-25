@@ -54,7 +54,8 @@ document.addEventListener('DOMContentLoaded', function() {
     $inuk.value = $braille.value;
     $braille.value = tempText;
 
-    loadLanguage(languageSelector1.value, true);
+    // بعد تبديل النصوص، قم بترجمة النص في الحقل الثاني إلى الحقل الأول بالعكس
+    translateBrailleToInuk();
   });
 
   loadLanguage(languageSelector1.value, true);
@@ -103,6 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
     $braille.value = result.trim();
   }
 
+  // دالة لترجمة النص من الحقل المترجم إلى النص الأصلي باستخدام القاموس بالعكس
   function translateBrailleToInuk() {
     const brailleText = $braille.value;
     const words = brailleText.split(/\s+/);
@@ -133,6 +135,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
       if (!phraseFound) {
         let word = words[i];
+        // ترجمة الكلمة باستخدام القاموس بالعكس
         const translated = Object.keys(inukKey).find(key => inukKey[key] === word) || word;
         result += translated + " ";
         i++;
