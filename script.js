@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const jsonLinks = {
         "arabic": "arabic.json",
         "ezidi": "ezidi.json",
-        "khwark": "khwark.json",
+        "khwark": "khwarki.json",
         "juanbi": "juanbi.json",
         "walati": "walati.json"
     };
