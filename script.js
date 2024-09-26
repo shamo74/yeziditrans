@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         for (var key in inukKey) {
                             if (inukKey.hasOwnProperty(key)) {
                                 if (word === key) { // بحث عن الكلمة المطابقة
-                                    result += inukKey[key][0] + " " + inukKey[key][1] + " ";
+                                    result += inukKey[key][0] + "" + inukKey[key][1] + "";
                                     translated = true;
                                     break;
                                 }
