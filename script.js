@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
 
                     if (!phraseFound) {
-                        var word = words[i].replace(/[^\u0621-\u064A\u0660-\u0669]/g, ""); // تجاهل الرموز والأرقام
+                        var word = words[i].replace(/[^\u0621-\u064A\u0660-\u0669]/g, " "); // تجاهل الرموز والأرقام
                         
                         // التحقق من عدم تكرار الكلمة في القائمة
                         if (!wordsWritten.includes(word) && word.length > 0) {
@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                         if (!translated) {
                             // إذا لم توجد ترجمة، يتم إضافة الكلمة كما هي
-                            result += word + "";
+                            result += word + " ";
                         }
                         i++;
                     }
