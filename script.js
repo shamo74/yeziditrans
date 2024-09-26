@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     // تحقق من العبارات الخاصة
                     for (var phrase in SPECIAL_RESPONSES) {
                         if (SPECIAL_RESPONSES.hasOwnProperty(phrase)) {
-                            var phraseWords = phrase.split(" ");
+                            var phraseWords = phrase.split("");
                             var match = true;
 
                             for (var j = 0; j < phraseWords.length; j++) {
@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             }
 
                             if (match) {
-                                result += SPECIAL_RESPONSES[phrase][0] + " " + SPECIAL_RESPONSES[phrase][1] + " ";
+                                result += SPECIAL_RESPONSES[phrase][0] + "" + SPECIAL_RESPONSES[phrase][1] + "";
                                 i += phraseWords.length;
                                 phraseFound = true;
                                 break;
@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                         if (!translated) {
                             // إذا لم توجد ترجمة، يتم إضافة الكلمة كما هي
-                            result += word + " ";
+                            result += word + "";
                         }
                         i++;
                     }
