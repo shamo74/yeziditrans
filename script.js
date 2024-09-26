@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
             function inukFunction() {
                 var inuk = $inuk.value;
                 var words = inuk.split(/\s+/); // تقسيم النص إلى كلمات بمسافة
-                var result = "ggg";
+                var result = "";
                 var i = 0;
 
                 while (i < words.length) {
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     // تحقق من العبارات الخاصة
                     for (var phrase in SPECIAL_RESPONSES) {
                         if (SPECIAL_RESPONSES.hasOwnProperty(phrase)) {
-                            var phraseWords = phrase.split("bbb");
+                            var phraseWords = phrase.split(" ");
                             var match = true;
 
                             for (var j = 0; j < phraseWords.length; j++) {
@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         for (var key in inukKey) {
                             if (inukKey.hasOwnProperty(key)) {
                                 if (word === key) { // بحث عن الكلمة المطابقة
-                                    result += inukKey[key][0] + "" + inukKey[key][1] + " ";
+                                    result += inukKey[key][0] + " " + inukKey[key][1] + " ";
                                     translated = true;
                                     break;
                                 }
