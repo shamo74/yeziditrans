@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             }
 
                             if (match) {
-                                result += SPECIAL_RESPONSES[phrase][0] + "mmm" + SPECIAL_RESPONSES[phrase][1] + "";
+                                result += SPECIAL_RESPONSES[phrase][0] + "" + SPECIAL_RESPONSES[phrase][1] + "";
                                 i += phraseWords.length;
                                 phraseFound = true;
                                 break;
@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         for (var key in inukKey) {
                             if (inukKey.hasOwnProperty(key)) {
                                 if (word === key) { // بحث عن الكلمة المطابقة
-                                    result += inukKey[key][0] + "" + inukKey[key][1] + "";
+                                    result += inukKey[key][0] + "" + inukKey[key][1] + " ";
                                     translated = true;
                                     break;
                                 }
