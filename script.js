@@ -1,187 +1,122 @@
 document.addEventListener('DOMContentLoaded', function() {
-    let typingTimer;
-    const doneTypingInterval = 100;
-    const $inuk = document.getElementById("inuk");
-    const $braille = document.getElementById("braille");
-    let inukKey = {};
-    const SPECIAL_RESPONSES = {};
-    const jsonLinks = {
-        "arabic": "arabic.json",
-        "ezidi": "ezidi.json",
-        "khwarki": "khwarki.json",
-        "juanbi": "juanbi.json",
-        "walati": "walati.json"
-    };
+            var typingTimer;
+            var doneTypingInterval = 100; // زمن التأخير بعد التوقف عن الكتابة
+            var $inuk = document.getElementById("inuk");
+            var $braille = document.getElementById("braille");
+            var inputLanguage = document.getElementById("inputLanguage");
+            var outputLanguage = document.getElementById("outputLanguage");
+            var wordsWritten = []; // قائمة تخزين الكلمات المكتوبة
 
-    function loadLanguage(language, translateInput = true) {
-        fetch(jsonLinks[language])
-            .then(response => response.json())
-            .then(data => {
-                inukKey = data.inukKey || {};
-                Object.assign(SPECIAL_RESPONSES, data.SPECIAL_RESPONSES || {});
-                if (translateInput) {
-                    inukFunction();
-                } else {
-                    translateBrailleToInuk();
-                }
-            })
-            .catch(error => console.error('حدث خطأ في جلب الملف JSON:', error));
-    }
+            var inukKey = {};
+            const SPECIAL_RESPONSES = {};
 
-    const languageSelector1 = document.getElementById('languageSelector1');
-    const languageSelector2 = document.getElementById('languageSelector2');
+            function loadTranslations(language) {
+                var filePath = language === "ar" ? 'language-arabic.json' : 'translations.json';
+                
+                fetch(filePath)
+                    .then(response => response.json())
+                    .then(data => {
+                        inukKey = data.inukKey;
+                        Object.assign(SPECIAL_RESPONSES, data.SPECIAL_RESPONSES);
+                    })
+                    .catch(error => console.error('حدث خطأ في جلب الملف JSON:', error));
+            }
 
-    languageSelector1.addEventListener('change', function() {
-        loadLanguage(this.value, true);
-    });
+            // تحميل الترجمات عند تحميل الصفحة
+            loadTranslations(inputLanguage.value);
 
-    languageSelector2.addEventListener('change', function() {
-        loadLanguage(this.value, false);
-    });
+            $inuk.addEventListener('keyup', function() {
+                clearTimeout(typingTimer);
+                typingTimer = setTimeout(inukFunction, doneTypingInterval);
+            });
 
-    const switchArrow = document.getElementById('switchArrow');
-    switchArrow.addEventListener('click', function() {
-        this.classList.add('rotating');
-        setTimeout(() => {
-            this.classList.remove('rotating');
-        }, 500);
+            document.getElementById("swapLanguages").addEventListener('click', function() {
+                // تبديل اللغات
+                var temp = inputLanguage.value;
+                inputLanguage.value = outputLanguage.value;
+                outputLanguage.value = temp;
 
-        const tempValue = languageSelector1.value;
-        languageSelector1.value = languageSelector2.value;
-        languageSelector2.value = tempValue;
+                loadTranslations(inputLanguage.value);
+                inukFunction(); // ترجمة النص عند التبديل
+            });
 
-        const tempText = $inuk.value;
-        $inuk.value = $braille.value;
-        $braille.value = tempText;
+            function inukFunction() {
+                var inuk = $inuk.value;
+                var words = inuk.split(/\s+/); // تقسيم النص إلى كلمات بمسافة
+                var result = "";
+                var i = 0;
 
-        // بعد تبديل النصوص، قم بترجمة النص في الحقل الثاني إلى الحقل الأول بالعكس
-        translateBrailleToInuk();
-    });
+                while (i < words.length) {
+                    var phraseFound = false;
 
-    loadLanguage(languageSelector1.value, true);
+                    // تحقق من العبارات الخاصة
+                    for (var phrase in SPECIAL_RESPONSES) {
+                        if (SPECIAL_RESPONSES.hasOwnProperty(phrase)) {
+                            var phraseWords = phrase.split(" ");
+                            var match = true;
 
-    $inuk.addEventListener('keyup', function() {
-        clearTimeout(typingTimer);
-        typingTimer = setTimeout(inukFunction, doneTypingInterval);
-    });
+                            for (var j = 0; j < phraseWords.length; j++) {
+                                if (words[i + j] !== phraseWords[j]) {
+                                    match = false;
+                                    break;
+                                }
+                            }
 
-    function inukFunction() {
-        const inuk = $inuk.value;
-        const words = inuk.split(/\s+/);
-        let result = "";
-        let i = 0;
+                            if (match) {
+                                result += SPECIAL_RESPONSES[phrase][0] + " " + SPECIAL_RESPONSES[phrase][1] + " ";
+                                i += phraseWords.length;
+                                phraseFound = true;
+                                break;
+                            }
+                        }
+                    }
 
-        while (i < words.length) {
-            let phraseFound = false;
+                    if (!phraseFound) {
+                        var word = words[i].replace(/[^\u0621-\u064A\u0660-\u0669]/g, ""); // تجاهل الرموز والأرقام
+                        
+                        // التحقق من عدم تكرار الكلمة في القائمة
+                        if (!wordsWritten.includes(word) && word.length > 0) {
+                            wordsWritten.push(word); // إضافة الكلمة إلى القائمة
+                        }
 
-            for (const phrase in SPECIAL_RESPONSES) {
-                const phraseWords = phrase.split(" ");
-                let match = true;
+                        var translated = false;
+                        for (var key in inukKey) {
+                            if (inukKey.hasOwnProperty(key)) {
+                                if (word === key) { // بحث عن الكلمة المطابقة
+                                    result += inukKey[key][0] + " " + inukKey[key][1] + " ";
+                                    translated = true;
+                                    break;
+                                }
+                            }
+                        }
 
-                for (let j = 0; j < phraseWords.length; j++) {
-                    if (words[i + j] !== phraseWords[j]) {
-                        match = false;
-                        break;
+                        if (!translated) {
+                            // إذا لم توجد ترجمة، يتم إضافة الكلمة كما هي
+                            result += word + " ";
+                        }
+                        i++;
                     }
                 }
 
-                if (match) {
-                    result += SPECIAL_RESPONSES[phrase] + " ";
-                    i += phraseWords.length;
-                    phraseFound = true;
-                    break;
-                }
+                $braille.value = result.trim();
             }
+        });
 
-            if (!phraseFound) {
-                let word = words[i];
-                const translated = inukKey[word] || word;
-                result += translated + " ";
-                i++;
-            }
-        }
+        // نسخ النص
+        const copyButton = document.getElementById('copyButton');
+        const brailleTextarea = document.getElementById('braille');
 
-        $braille.value = result.trim();
-    }
+        copyButton.addEventListener('click', () => {
+            // تحديد النص في الحقل الثاني
+            brailleTextarea.select();
+            brailleTextarea.setSelectionRange(0, 99999); // للدعم الجيد للمتصفحات
 
-    function translateBrailleToInuk() {
-        const brailleText = $braille.value;
-        const words = brailleText.split(/\s+/);
-        let result = "";
-        let i = 0;
+            // نسخ النص إلى الحافظة
+            document.execCommand('copy');
 
-        while (i < words.length) {
-            let phraseFound = false;
+            // إزالة التحديد من الحقل
+            window.getSelection().removeAllRanges();
 
-            for (const phrase in SPECIAL_RESPONSES) {
-                const phraseWords = phrase.split(" ");
-                let match = true;
-
-                for (let j = 0; j < phraseWords.length; j++) {
-                    if (words[i + j] !== phraseWords[j]) {
-                        match = false;
-                        break;
-                    }
-                }
-
-                if (match) {
-                    result += phrase + " ";
-                    i += phraseWords.length;
-                    phraseFound = true;
-                    break;
-                }
-            }
-
-            if (!phraseFound) {
-                let word = words[i];
-                const translated = inukKey[word] || word;
-                result += translated + " ";
-                i++;
-            }
-        }
-
-        $inuk.value = result.trim();
-    }
-
-    const copyButton = document.getElementById("copyButton");
-    copyButton.addEventListener("click", copyText);
-
-    function copyText() {
-        const textarea = document.getElementById("braille");
-        textarea.select();
-        document.execCommand("copy");
-        alert("تم نسخ النص!");
-    }
-
-    // اضافة دالة لترجمة النص عند الضغط على زر الترجمة
-    const translateButton = document.getElementById("translateButton");
-    translateButton.addEventListener("click", function() {
-        const currentLanguage = languageSelector1.value; // اللغة المحددة
-        const textToTranslate = $braille.value; // نص الحقل الثاني
-        if (textToTranslate.trim() !== "") {
-            translateText(textToTranslate, currentLanguage);
-        } else {
-            alert("يرجى إدخال نص لترجمته.");
-        }
-    });
-
-    // دالة لترجمة النص
-    function translateText(text, language) {
-        fetch(jsonLinks[language])
-            .then(response => response.json())
-            .then(data => {
-                inukKey = data.inukKey || {};
-                Object.assign(SPECIAL_RESPONSES, data.SPECIAL_RESPONSES || {});
-
-                const words = text.split(/\s+/);
-                let result = "";
-
-                for (let word of words) {
-                    const translated = inukKey[word] || word; // ترجمة الكلمة أو الاحتفاظ بها إذا لم تكن موجودة
-                    result += translated + " ";
-                }
-                $inuk.value = result.trim(); // إظهار النص المترجم في الحقل الأول
-            })
-            .catch(error => console.error('حدث خطأ في جلب الملف JSON:', error));
-    }
-});
+            // رسالة تأكيد النسخ
+            alert('تم نسخ النص بنجاح!');
+        });
