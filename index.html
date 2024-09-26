@@ -3,40 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ترجمة النص</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css"> <!-- رابط لملف CSS -->
+    <title>Google Translation </title>
+ 
 </head>
 <body>
+   <link rel="stylesheet" href="style.css">
+    <header>
+        <div class="user-profile">
+            <img src="https://static-00.iconduck.com/assets.00/translate-icon-2048x2048-1uvsusdw.png" alt="User Profile">
+        </div>
+        <div class="header-text">Google</div>
+        <div class="star-icon">★</div>
+    </header>
+    <center/>
     <div class="container">
-        <h1>ترجمة النص</h1>
-        <div class="language-switcher">
-            <select id="languageSelector1">
-                <option value="arabic">العربية</option>
-                <option value="ezidi">الإيزيدية</option>
-                <option value="khwarki">الخواركية</option>
-                <option value="juanbi">الحوانبية</option>
-                <option value="walati">الولاتية</option>
+        <div class="input-section">
+            <textarea id="inuk" class="input-box" placeholder="إدخال النص"></textarea>
+        </div>
+
+        <div class="language-selection">
+            <select id="inputLanguage" class="language">
+                <option value="ar">العربية</option>
+                <option value="en">الإنجليزية</option>
             </select>
-            <span class="switch-arrow" id="switchArrow"><i class="fas fa-exchange-alt"></i></span>
-            <select id="languageSelector2">
-                <option value="ezidi">الإيزيدية</option>
-                <option value="arabic">العربية</option>
-                <option value="khwark">الخواركية</option>
-                <option value="juanbi">الحوانبية</option>
-                <option value="walati">الولاتية</option>
+            <button id="swapLanguages" class="swap-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-refresh-cw">
+                    <polyline points="23 4 23 10 17 10"></polyline>
+                    <polyline points="1 20 1 14 7 14"></polyline>
+                    <path d="M3.51 9a9 9 0 0 1 13.44-3.61L23 10"></path>
+                    <path d="M20.49 15a9 9 0 0 1-13.44 3.61L1 14"></path>
+                </svg>
+            </button>
+            <select id="outputLanguage" class="language">
+                <option value="en">الإنجليزية</option>
+                <option value="ar">العربية</option>
             </select>
         </div>
 
-        <textarea spellcheck="false" id="inuk" placeholder="أدخل النص"></textarea>
-        <div class="hint">يمكنك لصق النص هنا</div>
-        <textarea class="translated-text" id="braille" readonly onclick="copyText()">ترجمة النص هنا</textarea>
-        <button id="copyButton">نسخ النص</button>
-        <button id="translateButton">ترجمة النص</button>
+        <div class="input-section">
+            <textarea id="braille" class="input-box" readonly>ترجمة</textarea>
+            <button class="paste-btn" id="copyButton">نسخ</button>
+        </div>
+
+        <div class="bottom-icons">
+            <div class="icon">
+                <button class="icon-btn">📷</button>
+                <div class="icon-label">الكاميرا</div>
+            </div>
+            <div class="icon">
+                <button class="mic-btn">🎤</button>
+            </div>
+            <div class="icon">
+                <button class="icon-btn">👥</button>
+                <div class="icon-label">محادثة</div>
+            </div>
+        </div>
     </div>
 
-    <audio id="keypressSound" src="keypress.mp3" preload="auto"></audio>
-
-    <script src="script.js"></script> <!-- رابط لملف JavaScript -->
+    <script src="script.js"></script>
 </body>
 </html>
