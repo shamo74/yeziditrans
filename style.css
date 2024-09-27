@@ -1,6 +1,14 @@
-   /* General Styling */
+  /* Font Face for TTF */
+        @font-face {
+            font-family: 'CustomArabicFont';
+            src: url('CustomArabicFont.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        /* General Styling */
         body {
-            font-family: 'arabic', sans-serif;
+            font-family: 'CustomArabicFont', sans-serif; /* Applying the custom font */
             background-color: #FAF4F0;
             color: black;
             text-align: center;
@@ -40,19 +48,40 @@
 
         /* Input Section */
         .input-section {
-            margin: 1px 0;
-        }
-
-        .input-section h2 {
-            font-size: 14px;
+            position: relative;
+            margin: 20px 0;
         }
 
         .input-box {
             border: none;
             background-color: transparent;
-            font-size: 28px;
-            margin: 20px 0;
+            font-size: 20px;
             color: #4C4C4C;
+            width: 100%;
+            height: 100px;
+            padding-right: 30px;
+            overflow-y: auto;
+            resize: none;
+        }
+
+        .scroll-buttons {
+            position: absolute;
+            left: 1px;
+            top: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .scroll-btn {
+            background-color: #F4CBA2;
+            border: none;
+            border-radius: 50%;
+            padding: 5px;
+            margin: 5px 0;
+            cursor: pointer;
+            font-size: 16px;
         }
 
         .paste-btn {
@@ -78,7 +107,7 @@
             border: none;
             padding: 10px 20px;
             border-radius: 35px;
-            font-size: 16px;
+            font-size: 15px;
             cursor: pointer;
         }
 
@@ -108,6 +137,11 @@
             font-size: 24px;
             color: white;
             cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .mic-btn.recording {
+            background-color: red;
         }
 
         .icon-label {
@@ -120,16 +154,16 @@
             height: 60px;
             margin-top: 10px;
         }
-        
+
         .swap-icon {
             background-color: transparent;
             border: none;
             cursor: pointer;
             transition: transform 0.3s ease;
-            color: black; /* لون السهم الأساسي */
+            color: black;
         }
 
         .swap-icon:hover {
-            color: black; /* لون عند التمرير */
-            transform: rotate(360deg); /* دوران عند التمرير */
+            color: black;
+            transform: rotate(360deg);
         }
