@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Google Translation </title>
- 
+    <title>Google Translation</title>
+<link rel="stylesheet" href="style.css">
+
 </head>
 <body>
-   <link rel="stylesheet" href="style.css">
+
     <header>
         <div class="user-profile">
             <img src="https://static-00.iconduck.com/assets.00/translate-icon-2048x2048-1uvsusdw.png" alt="User Profile">
@@ -15,10 +16,15 @@
         <div class="header-text">Google</div>
         <div class="star-icon">★</div>
     </header>
-    <center/>
+
     <div class="container">
+        <!-- Input Section 1 with scroll buttons -->
         <div class="input-section">
             <textarea id="inuk" class="input-box" placeholder="إدخال النص"></textarea>
+            <div class="scroll-buttons">
+                <button class="scroll-btn" id="scrollUp1">⬆</button>
+                <button class="scroll-btn" id="scrollDown1">⬇</button>
+            </div>
         </div>
 
         <div class="language-selection">
@@ -40,8 +46,13 @@
             </select>
         </div>
 
+        <!-- Output Section 2 with scroll buttons -->
         <div class="input-section">
             <textarea id="braille" class="input-box" readonly>ترجمة</textarea>
+            <div class="scroll-buttons">
+                <button class="scroll-btn" id="scrollUp2">⬆</button>
+                <button class="scroll-btn" id="scrollDown2">⬇</button>
+            </div>
             <button class="paste-btn" id="copyButton">نسخ</button>
         </div>
 
@@ -51,7 +62,7 @@
                 <div class="icon-label">الكاميرا</div>
             </div>
             <div class="icon">
-                <button class="mic-btn">🎤</button>
+                <button class="mic-btn" id="startRecording">🎤</button>
             </div>
             <div class="icon">
                 <button class="icon-btn">👥</button>
@@ -61,5 +72,6 @@
     </div>
 
     <script src="script.js"></script>
+    
 </body>
 </html>
