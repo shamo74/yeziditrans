@@ -1,10 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
             var typingTimer;
-            var doneTypingInterval = 100; 
+            var doneTypingInterval = 100; // زمن التأخير بعد التوقف عن الكتابة
             var $inuk = document.getElementById("inuk");
             var $braille = document.getElementById("braille");
             var inputLanguage = document.getElementById("inputLanguage");
             var outputLanguage = document.getElementById("outputLanguage");
+            var wordsWritten = []; // قائمة تخزين الكلمات المكتوبة
 
             var inukKey = {};
             const SPECIAL_RESPONSES = {};
@@ -21,118 +22,137 @@ document.addEventListener('DOMContentLoaded', function() {
                     .catch(error => console.error('حدث خطأ في جلب الملف JSON:', error));
             }
 
+            // تحميل الترجمات عند تحميل الصفحة
             loadTranslations(inputLanguage.value);
 
             $inuk.addEventListener('keyup', function() {
                 clearTimeout(typingTimer);
-                typingTimer = setTimeout(inuk_to_braille, doneTypingInterval);
+                typingTimer = setTimeout(inukFunction, doneTypingInterval);
             });
 
-            $inuk.addEventListener('keydown', function() {
-                clearTimeout(typingTimer);
+            document.getElementById("swapLanguages").addEventListener('click', function() {
+                // تبديل اللغات
+                var temp = inputLanguage.value;
+                inputLanguage.value = outputLanguage.value;
+                outputLanguage.value = temp;
+
+                loadTranslations(inputLanguage.value);
+                inukFunction(); // ترجمة النص عند التبديل
             });
 
-            function inuk_to_braille() {
-                var inputText = $inuk.value.trim();
-                var words = inputText.split(' ');
-                var result = [];
+            function inukFunction() {
+                var inuk = $inuk.value;
+                var words = inuk.split(/\s+/); // تقسيم النص إلى كلمات بمسافة
+                var result = "";
+                var i = 0;
 
-                words.forEach(word => {
-                    var translatedWord = inukKey[word.toLowerCase()];
-                    if (translatedWord) {
-                        result.push(translatedWord);
-                    } else {
-                        result.push(word);
+                while (i < words.length) {
+                    var phraseFound = false;
+
+                    // تحقق من العبارات الخاصة
+                    for (var phrase in SPECIAL_RESPONSES) {
+                        if (SPECIAL_RESPONSES.hasOwnProperty(phrase)) {
+                            var phraseWords = phrase.split(" ");
+                            var match = true;
+
+                            for (var j = 0; j < phraseWords.length; j++) {
+                                if (words[i + j] !== phraseWords[j]) {
+                                    match = false;
+                                    break;
+                                }
+                            }
+
+                            if (match) {
+                                result += SPECIAL_RESPONSES[phrase][0] + " " + SPECIAL_RESPONSES[phrase][1] + " ";
+                                i += phraseWords.length;
+                                phraseFound = true;
+                                break;
+                            }
+                        }
                     }
-                });
 
-                var brailleText = result.join(' ');
+                    if (!phraseFound) {
+                        var word = words[i].replace(/[^\u0621-\u064A\u0660-\u0669]/g, " "); // تجاهل الرموز والأرقام
+                        
+                        // التحقق من عدم تكرار الكلمة
+                        if (!wordsWritten.includes(word) && word.length > 0) {
+                            wordsWritten.push(word); // إضافة الكلمة إلى القائمة
+                        }
 
-                if (SPECIAL_RESPONSES[inputText.toLowerCase()]) {
-                    brailleText = SPECIAL_RESPONSES[inputText.toLowerCase()];
+                        var translated = false;
+                        for (var key in inukKey) {
+                            if (inukKey.hasOwnProperty(key)) {
+                                if (word === key) { // بحث عن الكلمة المطابقة
+                                    result += inukKey[key][0] + " " + inukKey[key][1] + " ";
+                                    translated = true;
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (!translated) {
+                            // إذا لم توجد ترجمة، يتم إضافة الكلمة كما هي
+                            result += word + " ";
+                        }
+                        i++;
+                    }
                 }
 
-                $braille.value = brailleText;
+                $braille.value = result.trim();
             }
 
-            inputLanguage.addEventListener('change', function() {
-                loadTranslations(inputLanguage.value);
-            });
+            // إعداد التعرف على الصوت
+            const startRecording = document.getElementById('startRecording');
+            const audioStart = new Audio('start.mp3'); // رابط صوت بدء التسجيل
+            const audioStop = new Audio('stop.mp3'); // رابط صوت إيقاف التسجيل
 
-            document.getElementById("copyButton").addEventListener("click", function() {
-                $braille.select();
-                document.execCommand("copy");
-            });
+            if ('webkitSpeechRecognition' in window) {
+                const recognition = new webkitSpeechRecognition();
+                recognition.lang = inputLanguage.value; // تعيين اللغة
+                recognition.interimResults = false;
+                recognition.maxAlternatives = 1;
 
-            var scrollButtons1 = {
-                up: document.getElementById("scrollUp1"),
-                down: document.getElementById("scrollDown1")
-            };
-
-            var scrollButtons2 = {
-                up: document.getElementById("scrollUp2"),
-                down: document.getElementById("scrollDown2")
-            };
-
-            scrollButtons1.up.addEventListener("click", function() {
-                $inuk.scrollTop -= 20;
-            });
-
-            scrollButtons1.down.addEventListener("click", function() {
-                $inuk.scrollTop += 20;
-            });
-
-            scrollButtons2.up.addEventListener("click", function() {
-                $braille.scrollTop -= 20;
-            });
-
-            scrollButtons2.down.addEventListener("click", function() {
-                $braille.scrollTop += 20;
-            });
-
-            // Voice to text functionality
-            document.getElementById("startRecording").addEventListener("click", function() {
-                var micButton = this;
-                micButton.classList.toggle("recording");
-
-                if (micButton.classList.contains("recording")) {
-                    startVoiceRecognition();
-                } else {
-                    stopVoiceRecognition();
-                }
-            });
-
-            var recognition;
-            function startVoiceRecognition() {
-                if (!('webkitSpeechRecognition' in window)) {
-                    alert("متصفحك لا يدعم التعرف على الصوت");
-                    return;
-                }
-
-                recognition = new webkitSpeechRecognition();
-                recognition.lang = inputLanguage.value === "ar" ? "ar-SA" : "en-US";
-                recognition.interimResults = true;
-                recognition.continuous = false;
+                startRecording.addEventListener('click', function() {
+                    audioStart.play().then(() => {
+                        recognition.start(); // بدء التعرف على الصوت بعد تشغيل الصوت المخصص
+                    }).catch(err => {
+                        console.error("خطأ في تشغيل الصوت:", err);
+                    });
+                });
 
                 recognition.onresult = function(event) {
-                    var transcript = event.results[0][0].transcript;
-                    $inuk.value = transcript;
-                };
-
-                recognition.onerror = function(event) {
-                    console.error("حدث خطأ أثناء التعرف على الصوت:", event);
+                    const transcript = event.results[0][0].transcript; // نص الكلام
+                    $inuk.value += transcript; // إضافة النص إلى حقل الإدخال
+                    inukFunction(); // الترجمة بعد إضافة النص
                 };
 
                 recognition.onend = function() {
-                    document.getElementById("startRecording").classList.remove("recording");
+                    audioStop.play(); // تشغيل صوت إيقاف التسجيل عند انتهاء التعرف على الصوت
                 };
 
-                recognition.start();
+                recognition.onerror = function(event) {
+                    console.error('حدث خطأ أثناء التعرف على الصوت:', event.error);
+                };
+            } else {
+                alert('هذا المتصفح لا يدعم واجهة التعرف على الصوت.');
             }
+        });
 
-            function stopVoiceRecognition() {
-                if (recognition) {
-                    recognition.stop();
-                }
-            }
+        // نسخ النص
+        const copyButton = document.getElementById('copyButton');
+        const brailleTextarea = document.getElementById('braille');
+
+        copyButton.addEventListener('click', () => {
+            // تحديد النص في الحقل الثاني
+            brailleTextarea.select();
+            brailleTextarea.setSelectionRange(0, 99999); // للدعم الجيد للمتصفحات
+
+            // نسخ النص إلى الحافظة
+            document.execCommand('copy');
+
+            // إزالة التحديد من الحقل
+            window.getSelection().removeAllRanges();
+
+            // رسالة تأكيد النسخ
+            alert('تم نسخ النص بنجاح!');
         });
